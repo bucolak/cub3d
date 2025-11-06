@@ -6,11 +6,11 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 12:29:34 by bucolak           #+#    #+#             */
-/*   Updated: 2025/11/05 16:52:00 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/06 15:35:25 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 t_header	*init_header(void)
 {

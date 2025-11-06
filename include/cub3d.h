@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/05 18:36:22 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/06 17:54:34 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,21 @@ typedef struct s_map
 }			t_map;
 
 // ==================== main_parser.c ====================
-void	main_parser(char *header_map, t_map *init, t_header *header);
+void		main_parser(char *header_map, t_map *init, t_header *header);
 
 // ==================== element_parse.c ====================
-void	header_parse(char *header_map, t_header *init, t_map *init_map);
+void	map_and_header_parse(char *header_map, t_header *init, t_map *init_map);
 
 // ==================== rgb_parse.c ====================
-void	f_c_load(t_header *init, t_map *map, char *ptr);
+void		f_c_load(t_header *init, t_map *map, char *ptr);
 
 // ==================== element_identifier.c ====================
-void	identifier_check(t_header *init, char *line);
-void	identifier_load(t_header *init, t_map *map, char *line);
-
+void		identifier_check(t_header *init, char *line);
+void		identifier_load(t_header *init, t_map *map, char *line);
 
 // ==================== map_parser.c ====================
-void		map_parse(t_map *map);
+void	control_map(t_map *map, t_header *header);
+void		is_map_closed(t_map *map, t_header *header);
 
 // ==================== exit_1.c ====================
 void		error_map_exit(t_map *init_map);
@@ -92,15 +92,17 @@ void		error_exit_all(char *msg, t_header *header, t_map *map);
 char		**make_copy(t_map *map, t_header *header);
 
 // ==================== parsing_utils.c ====================
-int	ft_isspace(char c);
-char	*ft_path_maker(char *line, t_header *init);
+int			ft_isspace(char c);
+char	*ft_path_maker(char *line, t_header *init, t_map *map);
 
 // ==================== init.c ====================
 t_header	*init_header(void);
-t_map	*init_map(void);
-
-
+t_map		*init_map(void);
 
 int			ft_atol(const char *nptr);
-
+void	info(t_map *map);
+void	is_valid_map(t_map *map, t_header *header);
+int	is_map_started(char *line, char *header_map, t_header *init,
+		t_map *init_map);
+void	find_starting_coordinates(t_map *map);
 #endif

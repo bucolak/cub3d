@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:46:43 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/05 16:53:48 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/06 15:33:52 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ int	main(int argc, char **argv)
 	map = init_map();
 	
 	main_parser(argv[1], map, init);
-	debug(map, init);
+	// debug(map, init);
 }

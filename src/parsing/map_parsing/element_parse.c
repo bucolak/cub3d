@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/05 18:36:37 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/06 17:47:02 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	count_map_lines(char *header_map, t_header *init, t_map *init_map)
 	return (count);
 }
 
-static int	is_map_started(char *line, char *header_map, t_header *init,
+int	is_map_started(char *line, char *header_map, t_header *init,
 		t_map *init_map)
 {
 	int	i;
@@ -80,7 +80,7 @@ void	process_map_line(int fd, t_map *init_map, int *i)
 	}
 }
 
-void	header_parse(char *header_map, t_header *init, t_map *init_map)
+void	map_and_header_parse(char *header_map, t_header *init, t_map *init_map)
 {
 	char	*line;
 	int		fd;

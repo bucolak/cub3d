@@ -6,7 +6,7 @@
 #    By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 02:30:48 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/05 18:32:59 by bucolak          ###   ########.fr        #
+#    Updated: 2025/11/06 18:07:17 by bucolak          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,16 +31,17 @@ LIBFT_LDFLAGS := -L$(LIBFT_DIR) -lft
 EXIT_SRC := $(SRC_DIR)/exit/exit_1.c
 
 # SRC klasörü (main.c eklenecek)
-SRC_MAIN := $(SRC_DIR)/main.c
+SRC_MAIN := $(SRC_DIR)/main.c \
+			 $(SRC_DIR)/init.c
 
 # PARSING klasörü
-PARSING_SRC := $(SRC_DIR)/parsing/cpymap.c \
-               	$(SRC_DIR)/parsing/element_parser/element_parse.c \
-			   	$(SRC_DIR)/parsing/element_parser/element_identifier.c \
-				$(SRC_DIR)/parsing/element_parser/rgb_parse.c \
-              	$(SRC_DIR)/parsing/flood_fill.c \
+PARSING_SRC := 	$(SRC_DIR)/parsing/map_parsing/element_parse.c \
+			   	$(SRC_DIR)/parsing/map_parsing/element_identifier.c \
+				$(SRC_DIR)/parsing/map_parsing/rgb_parse.c \
+				$(SRC_DIR)/parsing/controls/is_map_close.c \
+              	$(SRC_DIR)/parsing/controls/is_valid_mapp.c \
+				$(SRC_DIR)/parsing/controls/main_control.c \
                	$(SRC_DIR)/parsing/main_parser.c \
-               	$(SRC_DIR)/parsing/map_parser.c \
                	$(SRC_DIR)/parsing/parsing_utils.c
 
 GNL_SRC := $(GNL_DIR)/get_next_line.c \
