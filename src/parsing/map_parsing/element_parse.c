@@ -3,104 +3,120 @@
 /*                                                        :::      ::::::::   */
 /*   element_parse.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/06 17:47:02 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/08 00:23:45 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d.h"
 
-static int	count_map_lines(char *header_map, t_header *init, t_map *init_map)
+static void has_extra_char(t_map *map, t_header *header, char *line)
 {
-	int		fd;
-	int		count;
-	char	*line;
-
-	fd = open(header_map, O_RDONLY);
-	if (fd < 0)
-		error_exit_all("Invalid fd", init, init_map);
-	count = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	if (ft_strchr(line, '1'))
 	{
-		count++;
 		free(line);
+		error_exit_all("Extra char in map!", header, map);
 	}
-	close(fd);
-	return (count);
+	free(line);
 }
 
-int	is_map_started(char *line, char *header_map, t_header *init,
-		t_map *init_map)
+static int on_the_map(t_map *map, t_header *header, char *line, int fd)
 {
-	int	i;
-	int	line_count;
+	int j;
 
-	i = 0;
-	while (line[i] && line[i] != '\n')
+	j = 0;
+	if(is_map_started(line) == 1)
 	{
-		if (line[i] == '0' || line[i] == '1' || line[i] == 'N' || line[i] == 'S'
-			|| line[i] == 'E' || line[i] == 'W')
+		map->raw_map[j++] = ft_strdup(line);
+		free(line);
+		while((line = get_next_line(fd)) != NULL)
 		{
-			line_count = count_map_lines(header_map, init, init_map);
-			init_map->raw_map = malloc(sizeof(char *) * (line_count + 1));
-			if (!init_map->raw_map)
-				error_exit_all("Error: Memory allocation failed", init,
-					init_map);
-			init_map->raw_map[line_count] = NULL;
-			return (1);
+			if(ft_strcmp(line, "\n") != 0)
+				map->raw_map[j++] = ft_strdup(line);
+			else
+			{
+				free(line);
+				while ((line = get_next_line(fd)) != NULL)
+					has_extra_char(map, header, line);
+				break;
+			}
+			if(line)
+				free(line);
 		}
-		i++;
+		return j;
 	}
+	return -1;
+}
+
+static int	handle_line_type(char *line, t_header *header, t_map *map, int fd)
+{
+	int	type;
+	int map_index;
+	
+	type = identifier_check(header, line);
+	identifier_load(header, map, line, type);
+	map_index = on_the_map(map, header, line, fd);
+    if (map_index != -1)
+	{
+		return (map_index);
+	}
+	free(line);
 	return (0);
 }
 
-void	process_header_line(char *line, t_header *init, t_map *init_map)
+static void read_loop(t_map *map, t_header *header, int fd)
 {
-	identifier_check(init, line);
-	if (init->type == ERROR)
+	char *line;
+	int i;
+	int map_end_index;
+
+	while((line = get_next_line(fd)) != NULL)
 	{
-		free(line);
-		error_exit_all("Please enter identifiers correctly!!\n", init,
-			init_map);
-	}
-	identifier_load(init, init_map, line);
-}
-
-void	process_map_line(int fd, t_map *init_map, int *i)
-{
-	char	*line;
-
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		init_map->raw_map[*i] = ft_strdup(line);
-		(*i)++;
-		free(line);
-	}
-}
-
-void	map_and_header_parse(char *header_map, t_header *init, t_map *init_map)
-{
-	char	*line;
-	int		fd;
-	int		i;
-
-	fd = open(header_map, O_RDONLY);
-	if (fd < 0)
-		error_exit_all("Invalid fd", init, init_map);
-	i = 0;
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		if (is_map_started(line, header_map, init, init_map) == 1)
+		if(ft_strcmp(line, "\n") == 0)
 		{
-			init_map->raw_map[i] = ft_strdup(line);
-			process_map_line(fd, init_map, &i);
-			break ;
+			free(line);			
+			continue;
 		}
-		else
-			process_header_line(line, init, init_map);
-		free(line);
+		i = 0;
+		while(line[i] && line[i] == ' ')
+			i++;
+		map_end_index = handle_line_type(line, header, map, fd);
+        if (map_end_index > 0)
+            break;
 	}
+	map->raw_map[map_end_index] = NULL;
+}
+
+static void count_line_and_malloc(t_map *map, t_header *header, char *header_map)
+{
+	int i;
+	int fd;
+	char *line;
+	
+	i = 0;
+	fd = open(header_map, O_RDONLY);
+	line = get_next_line(fd);
+	if(!line)
+		error_exit_all("Empty Map!", header, map);
+	i = 0;
+	while(line)
+	{
+		i++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	map->raw_map = malloc(sizeof(char *) * (i + 1));
+}
+
+void read_entire_file(char *header_map, t_map *map, t_header *header)
+{
+	int fd;
+
+	count_line_and_malloc(map, header, header_map);
+	fd = open(header_map, O_RDONLY);
+	read_loop(map, header, fd);
 	close(fd);
 }

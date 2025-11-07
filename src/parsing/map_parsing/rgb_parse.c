@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rgb_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:06:57 by bucolak           #+#    #+#             */
-/*   Updated: 2025/11/05 18:34:08 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/08 00:31:12 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,26 @@ static int	f_c_load_helper(char *ptr, t_header *init, t_map *map, char **temp)
 {
 	char	*trim;
 	int		val;
-
-	trim = ft_strtrim(ptr, " \t\n");
+	trim = NULL;
+	if(ptr)
+		trim = ft_strtrim(ptr, " \t\n");
 	if (!trim || !*trim)
 	{
 		free(trim);
 		free_2d_array(temp);
-		error_exit_all("Empty RGB value\n", init, map);
+		error_exit_all("Empty RGB value", init, map);
 	}
 	val = ft_atol(trim);
 	free(trim);
 	if (val < 0 || val > 255)
 	{
 		free_2d_array(temp);
-		error_exit_all("RGB value must be between 0-255\n", init, map);
+		error_exit_all("RGB value must be between 0-255", init, map);
 	}
 	return (val);
 }
 
-void	f_c_load(t_header *init, t_map *map, char *ptr)
+void	f_c_load(t_header *init, t_map *map, char *ptr, int type)
 {
 	int		i;
 	char	**temp;
@@ -42,15 +43,10 @@ void	f_c_load(t_header *init, t_map *map, char *ptr)
 
 	i = 0;
 	temp = ft_split(ptr, ',');
-	if (!temp || !temp[0] || !temp[1] || !temp[2] || temp[3])
-	{
-		free_2d_array(temp);
-		error_exit_all("Invalid RGB format\n", init, map);
-	}
 	while (i < 3)
 	{
 		val = f_c_load_helper(temp[i], init, map, temp);
-		if (init->type == F)
+		if (type == F)
 			init->f_rgb[i] = val;
 		else
 			init->c_rgb[i] = val;

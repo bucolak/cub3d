@@ -3,21 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   element_identifier.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:22:49 by bucolak           #+#    #+#             */
-/*   Updated: 2025/11/06 18:04:01 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/08 00:25:33 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d.h"
 
-char	*ft_path_maker(char *line, t_header *init, t_map *map)
+char	*ft_path_maker(char *line, t_header *init, t_map *map, int type)
 {
 	char	*ptr;
 	char	*start;
 	char	*end;
 	char	*path;
+	char *result;
+	(void)map;
+	(void)init;
 
 	ptr = line;
 	while (ft_isspace(*ptr))
@@ -25,55 +28,86 @@ char	*ft_path_maker(char *line, t_header *init, t_map *map)
 	ptr += 2;
 	while (ft_isspace(*ptr))
 		ptr++;
-	if (init->type == F || init->type == C)
-		return (ptr);
+	if (type == F || type == C)
+	{
+		result = malloc((sizeof(char))*(ft_strlen(ptr) + 1));
+		ft_strlcpy(result, ptr,ft_strlen(ptr) + 1);
+		return (result);
+	}
 	start = ptr;
 	end = start;
 	while (*end && !ft_isspace(*end) && *end != '\n')
 		end++;
 	while (ft_isspace(*end))
 		end++;
-	if (*end != '\0')
-		error_exit_all("Extra tokens in path line!!", init, map);
 	path = ft_substr(start, 0, end - start);
 	return (path);
 }
 
-void	identifier_check(t_header *init, char *line)
+int	identifier_check(t_header *init, char *line)
 {
 	char	*ptr;
-
+	int type;
+	
 	ptr = line;
 	while (*ptr == ' ' || *ptr == '\t')
 		ptr++;
 	if (!ft_strncmp(ptr, "NO", 2) && ft_isspace(ptr[2]))
-		init->type = NO;
+	{
+		// printf("burda var mısın7?\n");
+		init->no_path_c++;
+		type = NO;
+	}
 	else if (!ft_strncmp(ptr, "SO", 2) && ft_isspace(ptr[2]))
-		init->type = SO;
+	{
+		// printf("burda var mısın6?\n");
+		init->so_path_c++;
+		type = SO;
+	}
 	else if (!ft_strncmp(ptr, "WE", 2) && ft_isspace(ptr[2]))
-		init->type = WE;
+	{
+		// printf("burda var mısın5?\n");
+		init->we_path_c++;
+		type = WE;
+	}
 	else if (!ft_strncmp(ptr, "EA", 2) && ft_isspace(ptr[2]))
-		init->type = EA;
+	{
+		// printf("burda var mısın4?\n");
+		init->ea_path_c++;		
+		type = EA;
+	}
 	else if (!ft_strncmp(ptr, "F", 1) && ft_isspace(ptr[1]))
-		init->type = F;
+	{
+		// printf("burda var mısın3?\n");
+		init->f_c++;
+		type = F;
+	}
 	else if (!ft_strncmp(ptr, "C", 1) && ft_isspace(ptr[1]))
-		init->type = C;
+	{
+		// printf("burda var mısın2?\n");
+		init->c_c++;
+		type = C;
+	}
 	else
-		init->type = ERROR;
+		type = ERROR;
+	return type;
 }
 
-void	identifier_load(t_header *init, t_map *map, char *line)
+void	identifier_load(t_header *init, t_map *map, char *line, int type)
 {
-	if (init->type == NO)
-		init->no_path = ft_path_maker(line, init, map);
-	else if (init->type == SO)
-		init->so_path = ft_path_maker(line, init, map);
-	else if (init->type == WE)
-		init->we_path = ft_path_maker(line, init, map);
-	else if (init->type == EA)
-		init->ea_path = ft_path_maker(line, init, map);
-	else if (init->type == F || init->type == C)
-		f_c_load(init, map, ft_path_maker(line, init, map));
+	if (type == NO)
+		init->no_path = ft_path_maker(line, init, map, type);
+	else if (type == SO)
+		init->so_path = ft_path_maker(line, init, map, type);
+	else if (type == WE)
+		init->we_path = ft_path_maker(line, init, map, type);
+	else if (type == EA)
+		init->ea_path = ft_path_maker(line, init, map, type);
+	else if (type == F || type == C)
+	{
+		// printf("girdimi - Type: %d\n", type); 
+		f_c_load(init, map, ft_path_maker(line, init, map, type), type);
+	}
 }
 
 void	info(t_map *map)

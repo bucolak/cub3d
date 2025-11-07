@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_control.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:56:38 by bucolak           #+#    #+#             */
-/*   Updated: 2025/11/06 18:10:28 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/08 00:27:42 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,41 @@ static void	is_chars_valid(t_map *map, t_header *header)
 		error_exit_all("Invalid Chars in MAP!!", header, map);
 }
 
-static void	is_empty_line(t_map *map, t_header *header)
+static int	are_we_on_map(t_map *init_map)
 {
 	int	i;
-	int	len;
-	int	j;
-
-	j = -1;
-	i = -1;
-	while (map->raw_map[++i])
+	
+	i = 0;
+	while(init_map->raw_map[i])
 	{
-		len = ft_strlen(map->raw_map[i]);
-		if (len == 0)
-			error_exit_all("There is an empty line in the MAP!!", header, map);
-		while (map->raw_map[i][++j])
-			;
-		if (len == j)
-			error_exit_all("There is an empty line in the MAP!!", header, map);
+		
+		if(is_map_started(init_map->raw_map[i]) == 1)
+			return i;
+		i++;
+	}	
+	return (0);
+}
+
+static void header_control(t_map *map, t_header *header)
+{
+	// printf("c_c: %d, f_c: %d, no_path_c: %d, so_path_c: %d, ea_path_c: %d, we_path_c: %d\n",
+    //        header->c_c, header->f_c, header->no_path_c, 
+    //        header->so_path_c, header->ea_path_c, header->we_path_c);
+	if(header->c_c != 1 || header->f_c != 1 || header->no_path_c != 1 
+		|| header->so_path_c != 1 || header->ea_path_c != 1 || header->we_path_c != 1)
+	{
+		error_exit_all("Header error!", header, map);
 	}
 }
 
 void	control_map(t_map *map, t_header *header)
 {
-	is_chars_valid(map, header);
-	is_empty_line(map, header);
-	is_map_closed(map, header);
+	// is_empty_line(map, header);
+	header_control(map, header);
+	if(are_we_on_map(map) == 1)
+	{
+		is_chars_valid(map, header);
+		is_map_closed(map, header, are_we_on_map(map));
 	is_valid_map(map, header);
+	}
 }

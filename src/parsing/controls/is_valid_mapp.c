@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_valid.c                                         :+:      :+:    :+:   */
+/*   is_valid_mapp.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 01:33:28 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/06 18:01:45 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/08 00:32:17 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	control_valid_map(t_map *map, t_header *header, int i, int j)
+static void	control_valid_map(t_map *map, t_header *header, int i, int j)
 {
 	if (j > 0 && map->raw_map[i][j - 1] && map->raw_map[i][j - 1] != '1'
 		&& map->raw_map[i][j - 1] != ' ')

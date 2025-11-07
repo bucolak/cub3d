@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 12:29:34 by bucolak           #+#    #+#             */
-/*   Updated: 2025/11/06 15:35:25 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/07 17:04:47 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_header	*init_header(void)
     header->no_path = NULL;
     header->so_path = NULL;
     header->we_path = NULL;
-    header->type = -1;
 	return (header);
 }
 

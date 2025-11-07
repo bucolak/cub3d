@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+         #
+#    By: buket <buket@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 02:30:48 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/06 18:07:17 by bucolak          ###   ########.fr        #
+#    Updated: 2025/11/07 23:53:16 by buket            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC_MAIN := $(SRC_DIR)/main.c \
 PARSING_SRC := 	$(SRC_DIR)/parsing/map_parsing/element_parse.c \
 			   	$(SRC_DIR)/parsing/map_parsing/element_identifier.c \
 				$(SRC_DIR)/parsing/map_parsing/rgb_parse.c \
+				$(SRC_DIR)/parsing/map_parsing/is_map_start.c \
 				$(SRC_DIR)/parsing/controls/is_map_close.c \
               	$(SRC_DIR)/parsing/controls/is_valid_mapp.c \
 				$(SRC_DIR)/parsing/controls/main_control.c \
