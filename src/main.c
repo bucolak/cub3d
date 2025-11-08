@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:46:43 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/08 00:21:14 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/08 12:29:01 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 {
 	t_header *init;
 	t_map *map;
-	
+
 	if (argc != 2)
 	{
 		ft_putendl_fd("Error: Usage: ./cub3d <map.cub>", 2);

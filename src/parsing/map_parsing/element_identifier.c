@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   element_identifier.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:22:49 by bucolak           #+#    #+#             */
-/*   Updated: 2025/11/08 00:25:33 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/08 12:29:40 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ char	*ft_path_maker(char *line, t_header *init, t_map *map, int type)
 	char	*start;
 	char	*end;
 	char	*path;
-	char *result;
+	char	*result;
+
 	(void)map;
 	(void)init;
-
 	ptr = line;
 	while (ft_isspace(*ptr))
 		ptr++;
@@ -30,8 +30,8 @@ char	*ft_path_maker(char *line, t_header *init, t_map *map, int type)
 		ptr++;
 	if (type == F || type == C)
 	{
-		result = malloc((sizeof(char))*(ft_strlen(ptr) + 1));
-		ft_strlcpy(result, ptr,ft_strlen(ptr) + 1);
+		result = malloc((sizeof(char)) * (ft_strlen(ptr) + 1));
+		ft_strlcpy(result, ptr, ft_strlen(ptr) + 1);
 		return (result);
 	}
 	start = ptr;
@@ -47,8 +47,8 @@ char	*ft_path_maker(char *line, t_header *init, t_map *map, int type)
 int	identifier_check(t_header *init, char *line)
 {
 	char	*ptr;
-	int type;
-	
+	int		type;
+
 	ptr = line;
 	while (*ptr == ' ' || *ptr == '\t')
 		ptr++;
@@ -73,7 +73,7 @@ int	identifier_check(t_header *init, char *line)
 	else if (!ft_strncmp(ptr, "EA", 2) && ft_isspace(ptr[2]))
 	{
 		// printf("burda var mısın4?\n");
-		init->ea_path_c++;		
+		init->ea_path_c++;
 		type = EA;
 	}
 	else if (!ft_strncmp(ptr, "F", 1) && ft_isspace(ptr[1]))
@@ -90,7 +90,7 @@ int	identifier_check(t_header *init, char *line)
 	}
 	else
 		type = ERROR;
-	return type;
+	return (type);
 }
 
 void	identifier_load(t_header *init, t_map *map, char *line, int type)
@@ -105,7 +105,7 @@ void	identifier_load(t_header *init, t_map *map, char *line, int type)
 		init->ea_path = ft_path_maker(line, init, map, type);
 	else if (type == F || type == C)
 	{
-		// printf("girdimi - Type: %d\n", type); 
+		// printf("girdimi - Type: %d\n", type);
 		f_c_load(init, map, ft_path_maker(line, init, map, type), type);
 	}
 }
@@ -141,10 +141,11 @@ void	info(t_map *map)
 	}
 }
 
-void	find_starting_coordinates(t_map *map) // playerın başlangıç kordinatı için
+void	find_starting_coordinates(t_map *map)
+		// playerın başlangıç kordinatı için
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = -1;
 	while (map->raw_map[++i])

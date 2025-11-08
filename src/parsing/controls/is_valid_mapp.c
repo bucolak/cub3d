@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_valid_mapp.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 01:33:28 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/08 00:32:17 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/08 12:30:11 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ static void	control_valid_map(t_map *map, t_header *header, int i, int j)
 	if (map->raw_map[i][j + 1] && map->raw_map[i][j + 1] != '1'
 		&& map->raw_map[i][j + 1] != ' ')
 		error_exit_all("Invalid map!", header, map);
-	if (i > 0 && j < (int)ft_strlen(map->raw_map[i - 1]) && map->raw_map[i - 1][j]
-		&& map->raw_map[i - 1][j] != '1' && map->raw_map[i - 1][j] != ' ')
+	if (i > 0 && j < (int)ft_strlen(map->raw_map[i - 1]) && map->raw_map[i
+		- 1][j] && map->raw_map[i - 1][j] != '1' && map->raw_map[i
+		- 1][j] != ' ')
 		error_exit_all("Invalid map!", header, map);
 	if (map->raw_map[i + 1] && j < (int)ft_strlen(map->raw_map[i + 1])
 		&& map->raw_map[i + 1][j] != '1' && map->raw_map[i + 1][j] != ' ')

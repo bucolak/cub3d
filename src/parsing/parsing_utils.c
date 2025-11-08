@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 18:28:54 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/07 20:17:38 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/08 12:29:14 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 int	ft_isspace(char c)
 {
-	if (c == ' ' || c == '\t' || c == '\r' || c == '\v' || c == '\f' || c == '\n')
+	if (c == ' ' || c == '\t' || c == '\r' || c == '\v' || c == '\f'
+		|| c == '\n')
 		return (1);
 	else
 		return (0);
@@ -58,22 +59,3 @@ int	ft_strcmp(const char *s1, const char *s2)
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
-
-
-// void	*ft_grid_maker(size_t count, size_t size, t_map *init_map)
-// {
-// 	void			*x;
-// 	unsigned char	*str;
-// 	size_t			i; // initialize edilecek
-
-// 	x = malloc(count * size);
-// 	if (x == NULL)
-// 		error_map_exit("Malloc Error,", init_map);
-// 	str = (unsigned char *)x;
-// 	while (i < (count * size))
-// 	{
-// 		str[i] == ' ';
-// 		i++;
-// 	}
-// 	return (str);
-// }

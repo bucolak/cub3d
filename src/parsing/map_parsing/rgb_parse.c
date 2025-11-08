@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rgb_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:06:57 by bucolak           #+#    #+#             */
-/*   Updated: 2025/11/08 00:31:12 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/08 12:29:26 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ static int	f_c_load_helper(char *ptr, t_header *init, t_map *map, char **temp)
 {
 	char	*trim;
 	int		val;
+
 	trim = NULL;
-	if(ptr)
+	if (ptr)
 		trim = ft_strtrim(ptr, " \t\n");
 	if (!trim || !*trim)
 	{

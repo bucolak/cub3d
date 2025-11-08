@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 18:41:46 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/05 17:14:17 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/08 12:30:53 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,8 @@ void	free_2d_array(char **array)
 	free(array);
 }
 
-
 void	error_exit_header(t_header *init)
 {
-	// int	i;
-
-	// i = 0;
 	if (init->ea_path)
 		free(init->ea_path);
 	if (init->no_path)
@@ -41,32 +37,15 @@ void	error_exit_header(t_header *init)
 		free(init->so_path);
 	if (init->we_path)
 		free(init->we_path);
-	// printf("%s", error_message);
-	// exit(1);
 }
 
 void	error_map_exit(t_map *init_map)
 {
-	// int	i;
-
-	// i = 0;
-	// if (init_map->raw_map)
-	// {
-	// 	while (init_map->raw_map[i])
-	// 	{
-	// 		free(init_map->raw_map[i]);
-	// 		i++;
-	// 	}
-	// 	free(init_map->raw_map);
-	// }
-	// printf("%s", error_message);
-	// exit(1);
-
-	if(!init_map)
-		return;
-	if(init_map->raw_map)
+	if (!init_map)
+		return ;
+	if (init_map->raw_map)
 		free_2d_array(init_map->raw_map);
-	if(init_map->grid)
+	if (init_map->grid)
 		free_2d_array(init_map->grid);
 }
 

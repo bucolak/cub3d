@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   element_parse.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/08 00:23:45 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/08 12:29:36 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d.h"
 
-static void has_extra_char(t_map *map, t_header *header, char *line)
+static void	has_extra_char(t_map *map, t_header *header, char *line)
 {
 	if (ft_strchr(line, '1'))
 	{
@@ -22,86 +22,91 @@ static void has_extra_char(t_map *map, t_header *header, char *line)
 	free(line);
 }
 
-static int on_the_map(t_map *map, t_header *header, char *line, int fd)
+static int	on_the_map(t_map *map, t_header *header, char *line, int fd)
 {
-	int j;
+	int	j;
 
 	j = 0;
-	if(is_map_started(line) == 1)
+	if (is_map_started(line) == 1)
 	{
+		map->has_map = 1;
 		map->raw_map[j++] = ft_strdup(line);
 		free(line);
-		while((line = get_next_line(fd)) != NULL)
+		while ((line = get_next_line(fd)) != NULL)
 		{
-			if(ft_strcmp(line, "\n") != 0)
+			if (ft_strcmp(line, "\n") != 0)
 				map->raw_map[j++] = ft_strdup(line);
 			else
 			{
 				free(line);
 				while ((line = get_next_line(fd)) != NULL)
 					has_extra_char(map, header, line);
-				break;
+				break ;
 			}
-			if(line)
+			if (line)
 				free(line);
 		}
-		return j;
+		return (j);
 	}
-	return -1;
+	return (-1);
 }
 
 static int	handle_line_type(char *line, t_header *header, t_map *map, int fd)
 {
 	int	type;
-	int map_index;
-	
-	type = identifier_check(header, line);
-	identifier_load(header, map, line, type);
+	int	map_index;
+
 	map_index = on_the_map(map, header, line, fd);
-    if (map_index != -1)
+	if (map_index != -1)
 	{
 		return (map_index);
 	}
+	type = identifier_check(header, line);
+	identifier_load(header, map, line, type);
 	free(line);
 	return (0);
 }
 
-static void read_loop(t_map *map, t_header *header, int fd)
+static void	read_loop(t_map *map, t_header *header, int fd)
 {
-	char *line;
-	int i;
-	int map_end_index;
+	char	*line;
+	int		i;
+	int		map_end_index;
 
-	while((line = get_next_line(fd)) != NULL)
+	map_end_index = 0;
+	while ((line = get_next_line(fd)) != NULL)
 	{
-		if(ft_strcmp(line, "\n") == 0)
+		if (ft_strcmp(line, "\n") == 0)
 		{
-			free(line);			
-			continue;
+			free(line);
+			continue ;
 		}
 		i = 0;
-		while(line[i] && line[i] == ' ')
+		while (line[i] && line[i] == ' ')
 			i++;
 		map_end_index = handle_line_type(line, header, map, fd);
-        if (map_end_index > 0)
-            break;
+		if (map_end_index > 0)
+			break ;
 	}
+	if (map->has_map != 1)
+		error_exit_all("No map!", header, map);
 	map->raw_map[map_end_index] = NULL;
 }
 
-static void count_line_and_malloc(t_map *map, t_header *header, char *header_map)
+static void	count_line_and_malloc(t_map *map, t_header *header,
+		char *header_map)
 {
-	int i;
-	int fd;
-	char *line;
-	
+	int		i;
+	int		fd;
+	char	*line;
+
 	i = 0;
 	fd = open(header_map, O_RDONLY);
 	line = get_next_line(fd);
-	if(!line)
+	if (!line)
 		error_exit_all("Empty Map!", header, map);
 	i = 0;
-	while(line)
+	while (line)
 	{
 		i++;
 		free(line);
@@ -111,9 +116,9 @@ static void count_line_and_malloc(t_map *map, t_header *header, char *header_map
 	map->raw_map = malloc(sizeof(char *) * (i + 1));
 }
 
-void read_entire_file(char *header_map, t_map *map, t_header *header)
+void	read_entire_file(char *header_map, t_map *map, t_header *header)
 {
-	int fd;
+	int	fd;
 
 	count_line_and_malloc(map, header, header_map);
 	fd = open(header_map, O_RDONLY);
