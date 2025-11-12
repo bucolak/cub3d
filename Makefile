@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+         #
+#    By: buket <buket@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 02:30:48 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/08 12:11:35 by bucolak          ###   ########.fr        #
+#    Updated: 2025/11/12 21:58:58 by buket            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,10 @@ PARSING_SRC := 	$(SRC_DIR)/parsing/map_parsing/element_parse.c \
               	$(SRC_DIR)/parsing/controls/is_valid_mapp.c \
 				$(SRC_DIR)/parsing/controls/main_control.c \
 				$(SRC_DIR)/parsing/controls/xpm_control.c \
+				$(SRC_DIR)/raycast/raycast.c \
+				$(SRC_DIR)/raycast/hook_key.c \
+				$(SRC_DIR)/raycast/movement.c \
+				$(SRC_DIR)/raycast/drawing.c \
                	$(SRC_DIR)/parsing/main_parser.c \
                	$(SRC_DIR)/parsing/parsing_utils.c
 
