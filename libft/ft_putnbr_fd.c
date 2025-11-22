@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 15:54:56 by bucolak           #+#    #+#             */
-/*   Updated: 2024/10/25 13:09:31 by bucolak          ###   ########.fr       */
+/*   Created: 2024/10/15 23:11:09 by iarslan           #+#    #+#             */
+/*   Updated: 2024/10/26 23:15:25 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,23 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	if (n < 0)
+	char	x;
+	long	number;
+
+	number = (long)n;
+	if (number < 0)
 	{
-		if (n == -2147483648)
-			write(fd, "-2147483648", 11);
-		else
-		{
-			ft_putchar_fd('-', fd);
-			n = -n;
-			ft_putnbr_fd(n, fd);
-		}
+		write(fd, "-", 1);
+		number = -number;
 	}
-	else if (n == 0)
-		ft_putchar_fd('0', fd);
+	if (number > 9)
+	{
+		ft_putnbr_fd((number) / 10, fd);
+		ft_putnbr_fd((number) % 10, fd);
+	}
 	else
 	{
-		if (n <= 9)
-		{
-			ft_putchar_fd(n + '0', fd);
-		}
-		else
-		{
-			ft_putnbr_fd(n / 10, fd);
-			ft_putchar_fd((n % 10) + '0', fd);
-		}
+		x = number + '0';
+		write(fd, &x, 1);
 	}
 }

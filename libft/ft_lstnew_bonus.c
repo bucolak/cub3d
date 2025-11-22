@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 09:25:23 by bucolak           #+#    #+#             */
-/*   Updated: 2024/10/25 13:10:53 by bucolak          ###   ########.fr       */
+/*   Created: 2024/10/21 20:40:14 by iarslan           #+#    #+#             */
+/*   Updated: 2024/10/27 17:19:02 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list	*str;
+	t_list	*node;
 
-	str = (t_list *)malloc(sizeof(t_list));
-	if (!str)
+	node = malloc(sizeof(t_list));
+	if (!node)
 		return (NULL);
-	str->content = content;
-	str->next = NULL;
-	return (str);
+	node->content = content;
+	node->next = NULL;
+	return (node);
 }

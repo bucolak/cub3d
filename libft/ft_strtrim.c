@@ -3,38 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 12:49:16 by bucolak           #+#    #+#             */
-/*   Updated: 2024/10/25 13:07:39 by bucolak          ###   ########.fr       */
+/*   Created: 2024/10/14 22:39:41 by iarslan           #+#    #+#             */
+/*   Updated: 2024/10/27 18:00:24 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+static int	ft_find(char *set, char s1)
 {
-	int		i;
-	int		start;
-	int		end;
-	char	*s;
+	int	i;
 
-	start = 0;
-	while (s1[start] && ft_strchr(set, s1[start]))
-		start++;
-	end = ft_strlen(s1);
-	while (end > start && ft_strchr(set, s1[end - 1]))
-		end--;
-	s = (char *)malloc(end - start + 1);
-	if (!s)
-		return (NULL);
 	i = 0;
-	while (start < end)
+	while (set[i])
 	{
-		s[i] = s1[start];
-		start++;
+		if (set[i] == s1)
+			return (1);
 		i++;
 	}
-	s[i] = '\0';
-	return (s);
+	return (0);
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	char	*final;
+	int		start;
+	int		end;
+
+	if (!s1 || !set)
+		return (NULL);
+	start = 0;
+	while (ft_find((char *)set, s1[start]) && s1[start])
+		start++;
+	end = ft_strlen(s1) - 1;
+	while (ft_find((char *)set, s1[end]) && end > start)
+		end--;
+	if (start > end)
+		return (ft_strdup(""));
+	final = ft_substr(s1, start, end - start + 1);
+	if (!final)
+		return (0);
+	return (final);
 }

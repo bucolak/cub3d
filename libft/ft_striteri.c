@@ -3,19 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 13:31:44 by bucolak           #+#    #+#             */
-/*   Updated: 2024/10/25 13:51:37 by bucolak          ###   ########.fr       */
+/*   Created: 2024/10/15 21:19:09 by iarslan           #+#    #+#             */
+/*   Updated: 2024/10/27 02:53:01 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
 	unsigned int	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	if (!s || !f)
+		return ;
+	while (s[i])
 	{
 		f(i, &s[i]);
 		i++;

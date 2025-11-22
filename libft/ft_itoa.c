@@ -3,59 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 10:51:57 by bucolak           #+#    #+#             */
-/*   Updated: 2024/10/25 13:11:51 by bucolak          ###   ########.fr       */
+/*   Created: 2024/10/15 20:18:28 by iarslan           #+#    #+#             */
+/*   Updated: 2024/10/26 22:00:54 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_lenn(int n)
+static int	nbrlen(long x)
 {
-	int	i;
+	int	len;
 
-	i = 0;
-	if (n == 0)
-		return (1);
-	if (n < 0)
+	len = 1;
+	if (x < 0)
+		len++;
+	while (x > 9 || x < -9)
 	{
-		i++;
+		x = x / 10;
+		len++;
 	}
-	while (n != 0)
-	{
-		i++;
-		n /= 10;
-	}
-	return (i);
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
-	long	len;
-	long	nb;
-	char	*str;
-	int		i;
+	char	*final;
+	int		digitnmbr;
+	long	nlong;
 
-	i = 0;
-	nb = n;
-	len = ft_lenn(nb);
-	str = (char *)malloc(len + 1);
-	if (!str)
+	nlong = (long)n;
+	digitnmbr = nbrlen(nlong);
+	final = malloc(sizeof(char) * (digitnmbr + 1));
+	if (!final)
 		return (NULL);
-	str[len] = '\0';
-	if (nb < 0)
+	final[digitnmbr] = '\0';
+	if (nlong < 0)
 	{
-		str[0] = '-';
-		nb = -nb;
-		i++;
+		final[0] = '-';
+		nlong = -nlong;
 	}
-	while (len > i)
+	digitnmbr--;
+	while (nlong > 9)
 	{
-		str[len - 1] = nb % 10 + '0';
-		nb /= 10;
-		len--;
+		final[digitnmbr] = (nlong % 10) + '0';
+		nlong = nlong / 10;
+		digitnmbr--;
 	}
-	return (str);
+	final[digitnmbr] = nlong + '0';
+	return (final);
 }

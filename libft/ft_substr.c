@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 09:31:28 by bucolak           #+#    #+#             */
-/*   Updated: 2024/10/25 13:07:30 by bucolak          ###   ########.fr       */
+/*   Created: 2024/10/13 18:57:00 by iarslan           #+#    #+#             */
+/*   Updated: 2024/10/27 17:31:11 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,29 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*str;
+	char	*final;
+	size_t	i;
+	size_t	j;
+	size_t	strsize;
 
-	if (start >= ft_strlen(s))
+	strsize = ft_strlen(s);
+	j = 0;
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (start >= strsize)
+		return (ft_strdup(""));
+	if (len > strsize - start)
+		len = strsize - start;
+	final = malloc(sizeof(char) * (len + 1));
+	if (!final)
+		return (NULL);
+	while (i < len && s[i + start])
 	{
-		str = (char *)malloc(sizeof(char));
-		if (!str)
-			return (NULL);
-		*str = '\0';
+		final[j] = s[i + start];
+		j++;
+		i++;
 	}
-	else
-	{
-		if (ft_strlen(s) - start < len)
-		{
-			len = ft_strlen(s) - start;
-		}
-		str = (char *)malloc((sizeof(char) * len) + 1);
-		if (!str)
-			return (NULL);
-		ft_strlcpy(str, s + start, len + 1);
-	}
-	return (str);
+	final[j] = '\0';
+	return (final);
 }

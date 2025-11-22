@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 14:26:48 by bucolak           #+#    #+#             */
-/*   Updated: 2024/10/25 13:36:58 by bucolak          ###   ########.fr       */
+/*   Created: 2024/10/11 22:16:27 by iarslan           #+#    #+#             */
+/*   Updated: 2024/10/27 17:44:19 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isascii(int x)
+int	ft_isascii(int c)
 {
-	if (x >= 0 && x <= 127)
+	if ((c <= 127 && c >= 0))
 		return (1);
-	return (0);
+	else
+		return (0);
 }

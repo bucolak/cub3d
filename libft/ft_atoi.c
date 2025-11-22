@@ -3,38 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 18:09:15 by bucolak           #+#    #+#             */
-/*   Updated: 2024/10/25 13:50:05 by bucolak          ###   ########.fr       */
+/*   Created: 2024/10/12 19:18:42 by iarslan           #+#    #+#             */
+/*   Updated: 2024/10/27 02:52:01 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *nptr)
 {
-	int	s;
-	int	k;
 	int	i;
+	int	sign;
+	int	number;
 
-	s = 1;
-	k = 0;
+	number = 0;
 	i = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	sign = 1;
+	while (nptr[i] == ' ' || nptr[i] == '\t' || nptr[i] == '\n'
+		|| nptr[i] == '\v' || nptr[i] == '\f' || nptr[i] == '\r')
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
+		if (nptr[i] == '-')
+			sign = -1;
 		i++;
 	}
-	if (str[i] == '+' || str[i] == '-')
+	while (nptr[i] <= '9' && nptr[i] >= '0')
 	{
-		if (str[i] == '-')
-		{
-			s = -1;
-		}
+		number = number * 10 + (nptr[i] - 48);
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		k = k * 10 + (str[i] - '0');
-		i++;
-	}
-	return (k * s);
+	return (number * sign);
 }

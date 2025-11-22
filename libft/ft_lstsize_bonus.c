@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 09:25:29 by bucolak           #+#    #+#             */
-/*   Updated: 2024/10/25 13:10:39 by bucolak          ###   ########.fr       */
+/*   Created: 2024/10/21 22:03:48 by iarslan           #+#    #+#             */
+/*   Updated: 2024/10/27 17:19:04 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int	ft_lstsize(t_list *lst)
 {
-	size_t	i;
+	int	i;
 
+	if (!lst)
+		return (0);
 	i = 0;
-	while (lst != NULL)
+	while (lst)
 	{
 		i++;
 		lst = lst->next;

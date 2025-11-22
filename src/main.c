@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:46:43 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/08 12:29:01 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/22 14:48:15 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,24 @@
 
 int	main(int argc, char **argv)
 {
-	t_header *init;
-	t_map *map;
+	t_header	*header;
+	t_map		*map;
+	t_mlx		*mlx;
+	t_textures	tex;
 
 	if (argc != 2)
-	{
-		ft_putendl_fd("Error: Usage: ./cub3d <map.cub>", 2);
-		return (1);
-	}
-	init = init_header();
+		return (ft_putendl_fd("Error\nInvalid Program Use!", 2), 1);
+	header = init_header();
 	map = init_map();
-	main_parser(argv[1], map, init);
-	// debug(map, init);
+	main_parser(argv[1], header, map);
+	player_init(map);
+	mlx = ft_mlx_init(map, header, &tex);
+	ft_texture_init(mlx, &tex);
+	open_window(mlx, map, header);
+	mlx_loop_hook(mlx->ptr, ft_3d, mlx);
+	mlx_hook(mlx->win, 2, 1L << 0, key_press, mlx);
+	mlx_hook(mlx->win, 3, 1L << 1, key_release, mlx);
+	mlx_hook(mlx->win, 17, 0, close_window, mlx);
+	mlx_loop(mlx->ptr);
+	return (0);
 }

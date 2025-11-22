@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 18:28:54 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/08 12:29:14 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/06 02:35:40 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,52 @@
 
 int	ft_isspace(char c)
 {
-	if (c == ' ' || c == '\t' || c == '\r' || c == '\v' || c == '\f'
-		|| c == '\n')
+	if (c == ' ' || c == '\t' || c == '\r' || c == '\v' || c == '\f')
 		return (1);
 	else
 		return (0);
+}
+void	ft_split_free(char **temp)
+{
+	int	i;
+
+	i = 0;
+	if (!temp)
+		return ;
+	while (temp[i])
+	{
+		free(temp[i]);
+		i++;
+	}
+	free(temp);
+}
+
+char	*ft_path_maker(char *line, t_header *init, t_map *map)
+{
+	char	*ptr;
+	char	*start;
+	char	*end;
+	char	*path;
+
+	init->flag++;
+	ptr = line;
+	while (ft_isspace(*ptr))
+		ptr++;
+	ptr += 2;
+	while (ft_isspace(*ptr))
+		ptr++;
+	if (init->type == F || init->type == C)
+		return (ptr);
+	start = ptr;
+	end = start;
+	while (*end && !ft_isspace(*end) && *end != '\n')
+		end++;
+	while (ft_isspace(*end))
+		end++;
+	if (*end != '\0' && *end != '\n')
+		error_exit_all("Extra tokens in path line!", init, map);
+	path = ft_substr(start, 0, end - start);
+	return (path);
 }
 
 int	ft_atol(const char *nptr)
@@ -50,12 +91,23 @@ int	ft_atol(const char *nptr)
 	return (number * sign);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+void	*ft_grid_maker(size_t count, size_t size, t_map *init_map,
+		t_header *header)
 {
-	int	i;
+	void			*x;
+	unsigned char	*str;
+	size_t			i;
 
 	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
+	x = malloc(count * size);
+	if (x == NULL)
+		error_exit_all("Malloc Error", header, init_map);
+	str = (unsigned char *)x;
+	while (i < (count * size))
+	{
+		str[i] = ' ';
 		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+	str[i] = '\0';
+	return (str);
 }

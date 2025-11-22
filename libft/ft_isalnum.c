@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 14:23:09 by bucolak           #+#    #+#             */
-/*   Updated: 2024/10/25 13:36:40 by bucolak          ###   ########.fr       */
+/*   Created: 2024/10/11 22:16:20 by iarslan           #+#    #+#             */
+/*   Updated: 2024/10/27 17:44:14 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isalnum(int x)
+int	ft_isalnum(int c)
 {
-	if (((x >= 65 && x <= 90) || (x >= 97 && x <= 122)) || (x >= '0'
-			&& x <= '9'))
+	if ((c <= '9' && c >= '0') || (c <= 'z' && c >= 'a') || (c <= 'Z'
+			&& c >= 'A'))
 		return (1);
-	return (0);
+	else
+		return (0);
 }

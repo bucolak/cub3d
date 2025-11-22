@@ -3,74 +3,77 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: buket <buket@student.42.fr>                +#+  +:+       +#+         #
+#    By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/10/24 02:30:48 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/12 21:58:58 by buket            ###   ########.fr        #
+#    Created: 2025/11/03 23:02:30 by iarslan           #+#    #+#              #
+#    Updated: 2025/11/22 14:37:41 by bucolak          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# --- Dizinler ---
 SRC_DIR     := src
-EXIT_DIR    := exit
-PARSING_DIR := parsing
 INC_DIR     := include
 LIBFT_DIR   := libft
+MINILIBX_DIR := minilibx-linux
 GNL_DIR     := get_next_line
-MLX_DIR     := minilibx-linux
+PARSE_DIR   := $(SRC_DIR)/parsing
+EXIT_DIR    := $(SRC_DIR)/exit
+MLX_SRC_DIR := $(SRC_DIR)/mlx
+RAYCAST_DIR := $(SRC_DIR)/raycast
 
+# --- İsimler ---
 NAME        := cub3d
 
+# --- Araçlar ---
 CC          := cc
-CFLAGS      := -g -Wall -Wextra -Werror #look for -g flag
-INCS        := -I$(INC_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(GNL_DIR)
+CFLAGS      := -Wall -Wextra -Werror -O0 -g3
+INCS        := -I$(INC_DIR) -I$(LIBFT_DIR) -I$(MINILIBX_DIR)
 
-MLX_LDFLAGS := -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+# --- Link bayrakları (Linux mlx) ---
+MLX_LDFLAGS := -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
 LIBFT_LDFLAGS := -L$(LIBFT_DIR) -lft
 
-# EXIT klasörü (src/exit içinde)
-EXIT_SRC := $(SRC_DIR)/exit/exit_1.c
+# --- Kaynaklar (wildcard YOK; tek tek yazıldı) ---
+SRC := \
+	$(SRC_DIR)/main.c \
+	$(PARSE_DIR)/main_parser.c \
+	$(PARSE_DIR)/map_parser.c \
+	$(PARSE_DIR)/header_parser.c \
+	$(PARSE_DIR)/flood_fill.c \
+	$(PARSE_DIR)/cpymap.c \
+	$(PARSE_DIR)/parsing_utils.c \
+	$(PARSE_DIR)/parsing_utils2.c \
+	$(EXIT_DIR)/exit_1.c \
+	$(GNL_DIR)/get_next_line.c \
+	$(GNL_DIR)/get_next_line_utils.c \
+	debug/debug.c \
+	$(MLX_SRC_DIR)/mlx.c \
+	$(RAYCAST_DIR)/2D/2d.c \
+	$(RAYCAST_DIR)/3D/3d.c \
+	$(SRC_DIR)/init.c \
+	$(MLX_SRC_DIR)/movement.c \
+	$(RAYCAST_DIR)/raycast.c
+	
 
-# SRC klasörü (main.c eklenecek)
-SRC_MAIN := $(SRC_DIR)/main.c \
-			 $(SRC_DIR)/init.c
-
-# PARSING klasörü
-PARSING_SRC := 	$(SRC_DIR)/parsing/map_parsing/element_parse.c \
-			   	$(SRC_DIR)/parsing/map_parsing/element_identifier.c \
-				$(SRC_DIR)/parsing/map_parsing/rgb_parse.c \
-				$(SRC_DIR)/parsing/map_parsing/is_map_start.c \
-				$(SRC_DIR)/parsing/controls/is_map_close.c \
-              	$(SRC_DIR)/parsing/controls/is_valid_mapp.c \
-				$(SRC_DIR)/parsing/controls/main_control.c \
-				$(SRC_DIR)/parsing/controls/xpm_control.c \
-				$(SRC_DIR)/raycast/raycast.c \
-				$(SRC_DIR)/raycast/hook_key.c \
-				$(SRC_DIR)/raycast/movement.c \
-				$(SRC_DIR)/raycast/drawing.c \
-               	$(SRC_DIR)/parsing/main_parser.c \
-               	$(SRC_DIR)/parsing/parsing_utils.c
-
-GNL_SRC := $(GNL_DIR)/get_next_line.c \
-           $(GNL_DIR)/get_next_line_utils.c
-
-# Tüm kaynak dosyaları
-SRC := $(EXIT_SRC) $(PARSING_SRC) $(SRC_MAIN) $(GNL_SRC)
-
+# Objeleri kaynaklardan türet (wildcard değil; pattern subst. serbest)
 OBJ := $(SRC:.c=.o)
+
+# ================= Targets =================
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(MAKE) -C $(LIBFT_DIR)
-	@$(MAKE) -C $(MLX_DIR)
+	@$(MAKE) -C $(MINILIBX_DIR)
 	$(CC) $(CFLAGS) $(OBJ) $(INCS) $(LIBFT_DIR)/libft.a $(MLX_LDFLAGS) -o $(NAME)
 
+# --- Derleme kuralı (TEK TAB ile başlar) ---
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean
-	@$(MAKE) -C $(MLX_DIR) clean || true
+	@$(MAKE) -C $(MINILIBX_DIR) clean || true
 	$(RM) $(OBJ)
 
 fclean: clean
@@ -79,4 +82,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all  clean fclean re
