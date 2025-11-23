@@ -6,7 +6,7 @@
 #    By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 23:02:30 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/22 14:37:41 by bucolak          ###   ########.fr        #
+#    Updated: 2025/11/23 19:49:31 by bucolak          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,9 @@ SRC := \
 	$(PARSE_DIR)/cpymap.c \
 	$(PARSE_DIR)/parsing_utils.c \
 	$(PARSE_DIR)/parsing_utils2.c \
+	$(PARSE_DIR)/controls/is_map_close.c \
+	$(PARSE_DIR)/controls/main_control.c \
+	$(PARSE_DIR)/controls/xpm_control.c \
 	$(EXIT_DIR)/exit_1.c \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c \

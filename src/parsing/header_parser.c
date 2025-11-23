@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/06 02:04:09 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/23 19:14:42 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	identifier_check(t_header *header, char *line)
 		header->type = F;
 	else if (!ft_strncmp(ptr, "C", 1) && ft_isspace(ptr[1]))
 		header->type = C;
+	else if (!ft_strncmp(ptr, "\n", 1))
+		header->type = NL;
 	else
 		header->type = ERROR;
 }
@@ -99,16 +101,22 @@ void	header_parse(int fd, t_header *header, t_map *map)
 {
 	char	*line;
 
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	if(!line)
+		error_exit_all("Empty Map!", header, map);
+	while (line)
 	{
 		if ((is_map_started(line) == 1) && (header->ea_path && header->we_path
 				&& header->so_path && header->no_path && (header->flag == 6)))
 		{
-			raw_map_filler(line, map, fd, header);
+ 			raw_map_filler(line, map, fd, header);
 			break ;
 		}
 		else if (line[0] == '\n')
+		{
+			line = get_next_line(fd);
 			continue ;
+		}
 		else
 		{
 			identifier_check(header, line);
@@ -121,5 +129,6 @@ void	header_parse(int fd, t_header *header, t_map *map)
 			identifier_load(header, map, line);
 		}
 		free(line);
+		line = get_next_line(fd);
 	}
 }

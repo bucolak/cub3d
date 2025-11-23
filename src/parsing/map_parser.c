@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:30:11 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/08 01:30:17 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/11/23 18:36:46 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ static void	info(t_map *map, t_header *header)
 void	map_parse(t_map *map, t_header *header)
 {
 	char	**cpy_map;
-
 	is_chars_valid(map, header);
 	is_empty_line(map, header);
 	info(map, header);
