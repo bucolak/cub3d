@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 17:30:00 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/22 20:14:10 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/23 13:25:58 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,26 +79,23 @@ static void	move_player(t_mlx *mlx, int key)
 		newX = map->player.x - map->player.dirX * MOVE_SPEED;
 		newY = map->player.y - map->player.dirY * MOVE_SPEED;
 	}
-	// if(key == RIGHT)
-	// {
-	// 	// newX += map->player.planeX * MOVE_SPEED; 
-    //     // newY += map->player.planeY * MOVE_SPEED;
-	// 		newX = map->player.x + map->player.dirX * MOVE_SPEED;
-	// }
-	// if(key == LEFT)
-	// {
-	// 	// newX -= map->player.planeX * MOVE_SPEED;
-    //     // newY -= map->player.planeY * MOVE_SPEED;
-	
-	// 		newX = map->player.x - map->player.dirX * MOVE_SPEED;
-	// }
+	if(key == RIGHT)
+	{
+		newX = map->player.x - map->player.dirY * MOVE_SPEED;
+		newY = map->player.y + map->player.dirX * MOVE_SPEED;
+	}
+	if(key == LEFT)
+	{
+		newX = map->player.x + map->player.dirY * MOVE_SPEED;
+		newY = map->player.y - map->player.dirX * MOVE_SPEED;
+	}
 	if(newX >= WIN_W || newY >= WIN_H || newX<0 || newY<0)
 		return;
-	if (map->grid[(int)newY][(int)newX] != '1')
-	{
-		map->player.x = newX;
+	// wall sliding
+	if (map->grid[(int)newY][(int)map->player.x] != '1')
 		map->player.y = newY;
-	}
+	if (map->grid[(int)map->player.y][(int)newX] != '1')
+		map->player.x = newX;
 }
 
 int	update_game(t_mlx *mlx)
