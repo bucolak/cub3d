@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/23 15:11:40 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/24 21:26:27 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,4 +233,16 @@ void			cleanup_all(t_header *header, t_map *map);
 void			free_2d_array(char **array);
 void			error_exit_all(char *msg, t_header *header, t_map *map);
 
+// xpm_control.c
+void	is_xpm_valid(t_map *map, t_header *header, int type);
+
+// is_map_close.c
+void	is_map_closed(t_map *map, t_header *header);
+
+// main_control.c
+void	control_map(t_map *map, t_header *header);
+
+
+
+void	is_chars_valid(t_map *map, t_header *header);
 #endif
