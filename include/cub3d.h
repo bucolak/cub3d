@@ -6,7 +6,7 @@
 /*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/24 21:26:27 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/26 17:19:33 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@
 # include <stdio.h> // for printf
 # include <stdlib.h>
 # include <unistd.h>
+#include <sys/time.h>
 
 # define WIN_W 1920
 # define WIN_H 1080
 # define FOV_DEG 66.0
 # define M_PI 3.14159265358979323846
-# define ROT_SPEED 0.05
-# define MOVE_SPEED 0.05
+// # define ROT_SPEED 0.05
+// # define MOVE_SPEED 0.05
 
 enum			TYPE
 {
@@ -116,6 +117,9 @@ typedef struct s_player
 {
 	double		x;
 	double		y;
+	long long time;
+	double move_speed;
+	double rot_speed;
 	double dirX;   // oyuncunun baktığı yön
 	double dirY;   // oyuncunun baktığı yön
 	double planeX; // oyuncu plane (aslında kendisi gibi bişi)
@@ -242,7 +246,7 @@ void	is_map_closed(t_map *map, t_header *header);
 // main_control.c
 void	control_map(t_map *map, t_header *header);
 
+// calculate_FPS.c
+void ft_calc_FPS(t_player *player);
 
-
-void	is_chars_valid(t_map *map, t_header *header);
 #endif

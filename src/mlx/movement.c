@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 17:30:00 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/23 13:25:58 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/26 17:15:02 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,23 +71,23 @@ static void	move_player(t_mlx *mlx, int key)
 	// vektör toplaması
 	if (key == UP)
 	{
-		newX = map->player.x + map->player.dirX * MOVE_SPEED;
-		newY = map->player.y + map->player.dirY * MOVE_SPEED;
+		newX = map->player.x + map->player.dirX * mlx->map->player.move_speed;
+		newY = map->player.y + map->player.dirY * mlx->map->player.move_speed;
 	}
 	if (key == DOWN)
 	{
-		newX = map->player.x - map->player.dirX * MOVE_SPEED;
-		newY = map->player.y - map->player.dirY * MOVE_SPEED;
+		newX = map->player.x - map->player.dirX * mlx->map->player.move_speed;
+		newY = map->player.y - map->player.dirY * mlx->map->player.move_speed;
 	}
 	if(key == RIGHT)
 	{
-		newX = map->player.x - map->player.dirY * MOVE_SPEED;
-		newY = map->player.y + map->player.dirX * MOVE_SPEED;
+		newX = map->player.x - map->player.dirY * mlx->map->player.move_speed;
+		newY = map->player.y + map->player.dirX * mlx->map->player.move_speed;
 	}
 	if(key == LEFT)
 	{
-		newX = map->player.x + map->player.dirY * MOVE_SPEED;
-		newY = map->player.y - map->player.dirX * MOVE_SPEED;
+		newX = map->player.x + map->player.dirY * mlx->map->player.move_speed;
+		newY = map->player.y - map->player.dirX * mlx->map->player.move_speed;
 	}
 	if(newX >= WIN_W || newY >= WIN_H || newX<0 || newY<0)
 		return;
@@ -109,8 +109,8 @@ int	update_game(t_mlx *mlx)
 	if (mlx->keys.d)
 		move_player(mlx, RIGHT);
 	if(mlx->keys.right)
-		rotate_player(&mlx->map->player, ROT_SPEED);
+		rotate_player(&mlx->map->player, mlx->map->player.rot_speed);
 	if(mlx->keys.left)
-		rotate_player(&mlx->map->player, -ROT_SPEED);
+		rotate_player(&mlx->map->player, -mlx->map->player.rot_speed);
 	return (0);
 }

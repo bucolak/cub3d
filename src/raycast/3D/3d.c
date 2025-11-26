@@ -1,14 +1,14 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   3d.c                                               :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2025/11/13 01:21:41 by iarslan           #+#    #+#             */
-// /*   Updated: 2025/11/21 15:16:43 by iarslan          ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   3d.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/13 01:21:41 by iarslan           #+#    #+#             */
+/*   Updated: 2025/11/26 17:24:54 by buket            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
@@ -22,7 +22,7 @@ static void	convert_colors(t_header *header, t_textures *tex)
 	tex->floor_color = rgb_to_hex(header->f_rgb);
 	tex->ceiling_color = rgb_to_hex(header->c_rgb);
 }
-
+ 
 void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
@@ -98,6 +98,7 @@ int	ft_3d(t_mlx *mlx)
     t_draw_info draw;
 
 	x = -1;
+	ft_calc_FPS(&mlx->map->player); // mlx'teki player'ı kullanmamın sebebi movement'da mlx'teki player'ın kullanılmış olması.
     init_draw(&draw);
     update_game(mlx);
 	convert_colors(mlx->header, mlx->tex);

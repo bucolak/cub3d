@@ -6,7 +6,7 @@
 #    By: buket <buket@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 23:02:30 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/24 16:10:33 by buket            ###   ########.fr        #
+#    Updated: 2025/11/26 17:16:07 by buket            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRC := \
 	$(MLX_SRC_DIR)/mlx.c \
 	$(RAYCAST_DIR)/2D/2d.c \
 	$(RAYCAST_DIR)/3D/3d.c \
+	$(RAYCAST_DIR)/calculate_FPS.c \
 	$(SRC_DIR)/init.c \
 	$(MLX_SRC_DIR)/movement.c \
 	$(RAYCAST_DIR)/raycast.c
