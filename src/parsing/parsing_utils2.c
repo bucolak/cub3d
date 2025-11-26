@@ -6,7 +6,7 @@
 /*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 01:53:47 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/24 16:57:19 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/26 18:53:09 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_combining(char *line, char *whole, t_map *map, t_header *header)
 	{
 		free(whole);
 		free(line);
-		error_exit_all("Malloc Error", header, map);
+		error_exit_all("Malloc Error", header, map, NULL);
 	}
 	free(whole);
 	free(line);
@@ -62,7 +62,7 @@ void	raw_map_filler(char *line, t_map *init_map, int fd, t_header *header)
 
 	whole = ft_strdup("");
 	if (!whole)
-		error_exit_all("Malloc Error", header, init_map);
+		error_exit_all("Malloc Error", header, init_map, NULL);
 	whole = ft_combining(line, whole, init_map, header);
 	while ((line = get_next_line(fd)) != NULL)
 		whole = ft_combining(line, whole, init_map, header);

@@ -6,7 +6,7 @@
 /*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/24 22:21:54 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/26 18:51:36 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ static void	f_c_load(t_header *header, t_map *map, char *ptr)
 	if (!temp || !temp[0] || !temp[1] || !temp[2] || temp[3])
 	{
 		free_2d_array(temp);
-		error_exit_all("Invalid RGB format", header, map);
+		error_exit_all("Invalid RGB format", header, map,NULL);
 	}
 	while (i < 3)
 	{
 		trim = ft_strtrim(temp[i], " \t\n");
 		if (!trim || !*trim)
-			error_exit_all("Empty RGB value", header, map);
+			error_exit_all("Empty RGB value", header, map, NULL);
 		if (header->type == F)
 			header->f_rgb[i] = ft_atol(trim);
 		else
@@ -62,7 +62,7 @@ static void	f_c_load(t_header *header, t_map *map, char *ptr)
 		free(trim);
 		if (((header->type == F) && (header->f_rgb[i] == -1))
 			|| ((header->type == C) && (header->c_rgb[i] == -1)))
-			error_exit_all("Invalid RGB", header, map);
+			error_exit_all("Invalid RGB", header, map, NULL);
 		i++;
 	}
 	free_2d_array(temp);
@@ -116,7 +116,7 @@ void	header_parse(int fd, t_header *header, t_map *map)
 
 	line = get_next_line(fd);
 	if(!line)
-		error_exit_all("Empty Map!", header, map);
+		error_exit_all("Empty Map!", header, map, NULL);
 	while (line)
 	{
 		if (line[0] == '\n')
@@ -137,7 +137,7 @@ void	header_parse(int fd, t_header *header, t_map *map)
 			{ // Flag 6 ama hala map başlamadı
 				free(line);
 				error_exit_all("Please enter identifiers correctly!", header,
-					map);
+					map, NULL);
 			}
 		}
 		else
@@ -147,7 +147,7 @@ void	header_parse(int fd, t_header *header, t_map *map)
 			{
 				free(line);
 				error_exit_all("Please enter identifiers correctly!", header,
-					map);
+					map, NULL);
 			}
 			identifier_load(header, map, line);
 		}

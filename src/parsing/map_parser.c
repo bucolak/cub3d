@@ -6,7 +6,7 @@
 /*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:30:11 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/24 21:26:59 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/26 18:52:40 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ void	is_chars_valid(t_map *map, t_header *header)
 					|| map->raw_map[i][j] == 'N' || map->raw_map[i][j] == 'S'
 					|| map->raw_map[i][j] == 'E' || map->raw_map[i][j] == 'W'
 					|| map->raw_map[i][j] == ' '))
-				error_exit_all("Invalid Chars in MAP!", header, map);
+				error_exit_all("Invalid Chars in MAP!", header, map, NULL);
 			else if (map->raw_map[i][j] == 'N' || map->raw_map[i][j] == 'S'
 				|| map->raw_map[i][j] == 'E' || map->raw_map[i][j] == 'W')
 				p_count++;
 		}
 	}
 	if (p_count > 1)
-		error_exit_all("Multiple player spawns", header, map);
+		error_exit_all("Multiple player spawns", header, map, NULL);
 	else if (p_count == 0)
-		error_exit_all("There is no Player", header, map);
+		error_exit_all("There is no Player", header, map, NULL);
 }
 
 static void	is_empty_line(t_map *map, t_header *header)
@@ -53,7 +53,7 @@ static void	is_empty_line(t_map *map, t_header *header)
 	{
 		len = ft_strlen(map->raw_map[i]);
 		if (len == 0)
-			error_exit_all("There is an empty line in the MAP!", header, map);
+			error_exit_all("There is an empty line in the MAP!", header, map, NULL);
 		j = -1;
 		flag = 1;
 		while (map->raw_map[i][++j])
@@ -62,7 +62,7 @@ static void	is_empty_line(t_map *map, t_header *header)
 				flag = 0;
 		}
 		if (flag == 1)
-			error_exit_all("There is an empty line in the MAP!", header, map);
+			error_exit_all("There is an empty line in the MAP!", header, map, NULL);
 	}
 }
 
@@ -107,7 +107,7 @@ static void	make_grid(t_map *map, t_header *header)
 	map->width = max_x + 2;
 	map->grid = malloc(sizeof(char *) * (column + 3)); // for null
 	if (!map->grid)
-		error_exit_all("Malloc Error", header, map);
+		error_exit_all("Malloc Error", header, map, NULL);
 	while (++y < column + 2)
 		map->grid[y] = ft_grid_maker(sizeof(char), (max_x + 2), map, header);
 	map->grid[y] = NULL;  // Şimdi NULL terminator'ı ekle

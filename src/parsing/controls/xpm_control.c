@@ -6,7 +6,7 @@
 /*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:02:30 by bucolak           #+#    #+#             */
-/*   Updated: 2025/11/24 21:26:04 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/26 18:53:40 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	control_so(t_map *map, t_header *header)
 	if (end < 3 || header->so_path[end] != 'm' || header->so_path[end
 		- 1] != 'p' || header->so_path[end - 2] != 'x' || header->so_path[end
 		- 3] != '.')
-		error_exit_all("Wrong XPM Format!", header, map);
+		error_exit_all("Wrong XPM Format!", header, map, NULL);
 }
 
 static void control_we(t_map *map, t_header *header)
@@ -39,7 +39,7 @@ static void control_we(t_map *map, t_header *header)
 	if (end < 3 || header->we_path[end] != 'm' || header->we_path[end
 		- 1] != 'p' || header->we_path[end - 2] != 'x' || header->we_path[end
 		- 3] != '.')
-		error_exit_all("Wrong XPM Format!", header, map);
+		error_exit_all("Wrong XPM Format!", header, map, NULL);
 }
 
 static void	control_no(t_map *map, t_header *header)
@@ -54,7 +54,7 @@ static void	control_no(t_map *map, t_header *header)
 	if (end < 3 || header->no_path[end] != 'm' || header->no_path[end
 		- 1] != 'p' || header->no_path[end - 2] != 'x' || header->no_path[end
 		- 3] != '.')
-			error_exit_all("Wrong XPM Format!", header, map);
+			error_exit_all("Wrong XPM Format!", header, map, NULL);
 }
 
 static void control_ea(t_map *map, t_header *header)
@@ -69,7 +69,7 @@ static void control_ea(t_map *map, t_header *header)
 	if (end < 3 || header->ea_path[end] != 'm' || header->ea_path[end
 		- 1] != 'p' || header->ea_path[end - 2] != 'x' || header->ea_path[end
 		- 3] != '.')
-		error_exit_all("Wrong XPM Format!", header, map);
+		error_exit_all("Wrong XPM Format!", header, map, NULL);
 }
 
 void	is_xpm_valid(t_map *map, t_header *header, int type)

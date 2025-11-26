@@ -6,7 +6,7 @@
 /*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 14:49:24 by bucolak           #+#    #+#             */
-/*   Updated: 2025/11/24 16:50:25 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/26 18:53:16 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ static int	is_raws_closed(t_map *map)
 void	is_map_closed(t_map *map, t_header *header)
 {
 	if (is_raws_closed(map) == 1 || is_columns_closed(map) == 1)
-		error_exit_all("Map is not closed!", header, map);
+		error_exit_all("Map is not closed!", header, map, NULL);
 }

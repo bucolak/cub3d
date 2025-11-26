@@ -6,7 +6,7 @@
 /*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/26 17:19:33 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/26 18:44:51 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,9 +233,9 @@ void			ft_line_height(t_player *player);
 // void		close_window(void);
 void			error_map_exit(t_map *init_map);
 void			error_exit_header(t_header *init);
-void			cleanup_all(t_header *header, t_map *map);
+void	cleanup_all(t_header *header, t_map *map, t_mlx *mlx);
 void			free_2d_array(char **array);
-void			error_exit_all(char *msg, t_header *header, t_map *map);
+void	error_exit_all(char *msg, t_header *header, t_map *map, t_mlx *mlx);
 
 // xpm_control.c
 void	is_xpm_valid(t_map *map, t_header *header, int type);
@@ -248,5 +248,6 @@ void	control_map(t_map *map, t_header *header);
 
 // calculate_FPS.c
 void ft_calc_FPS(t_player *player);
+long long get_time_ms();
 
 #endif

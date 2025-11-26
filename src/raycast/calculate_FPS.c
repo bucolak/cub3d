@@ -6,13 +6,13 @@
 /*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 16:47:50 by buket             #+#    #+#             */
-/*   Updated: 2025/11/26 17:16:19 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/26 17:54:21 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static long long get_time_ms()
+long long get_time_ms()
 {
     struct timeval tv;
     long long time;

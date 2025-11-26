@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:46:43 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/22 14:48:15 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/26 17:55:10 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 	mlx = ft_mlx_init(map, header, &tex);
 	ft_texture_init(mlx, &tex);
 	open_window(mlx, map, header);
+	map->player.time = get_time_ms();
 	mlx_loop_hook(mlx->ptr, ft_3d, mlx);
 	mlx_hook(mlx->win, 2, 1L << 0, key_press, mlx);
 	mlx_hook(mlx->win, 3, 1L << 1, key_release, mlx);
