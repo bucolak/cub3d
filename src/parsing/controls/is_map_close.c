@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_map_close.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 14:49:24 by bucolak           #+#    #+#             */
-/*   Updated: 2025/11/26 18:53:16 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/27 16:41:56 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ static int	is_columns_closed(t_map *map)
 	i = 0;
 	while (map->raw_map[i])
 	{
-		if (map->raw_map[i][0] != '1' && map->raw_map[i][0] != ' '
+		if (map->raw_map[i][0] && map->raw_map[i][0] != '1' && map->raw_map[i][0] != ' '
 			&& map->raw_map[i][0] != '\n')
 		{
+			printf("id: %d, char: %d\n", i,map->raw_map[i][0]);
 			return (1);
 		}
 		j = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 17:30:00 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/26 17:15:02 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/27 13:25:15 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ static void	move_player(t_mlx *mlx, int key)
 	double	newY;
 
 	map = mlx->map;
+	if(!map || !map->grid)
+		return;
+	newX = map->player.x;
+	newY = map->player.y;
 	// vektör toplaması
 	if (key == UP)
 	{
@@ -89,7 +93,7 @@ static void	move_player(t_mlx *mlx, int key)
 		newX = map->player.x + map->player.dirY * mlx->map->player.move_speed;
 		newY = map->player.y - map->player.dirX * mlx->map->player.move_speed;
 	}
-	if(newX >= WIN_W || newY >= WIN_H || newX<0 || newY<0)
+	if(newX >= map->width || newY >= map->height || newX<0 || newY<0)
 		return;
 	// wall sliding
 	if (map->grid[(int)newY][(int)map->player.x] != '1')

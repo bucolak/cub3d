@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/26 18:44:51 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/27 19:05:52 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@
 # include <math.h>
 # include <stdio.h> // for printf
 # include <stdlib.h>
+# include <sys/time.h>
 # include <unistd.h>
-#include <sys/time.h>
 
 # define WIN_W 1920
 # define WIN_H 1080
 # define FOV_DEG 66.0
 # define M_PI 3.14159265358979323846
-// # define ROT_SPEED 0.05
-// # define MOVE_SPEED 0.05
+# define ROT_SPEED 2.0
+# define MOVE_SPEED 3.0
 
 enum			TYPE
 {
@@ -117,9 +117,9 @@ typedef struct s_player
 {
 	double		x;
 	double		y;
-	long long time;
-	double move_speed;
-	double rot_speed;
+	long long	time;
+	double		move_speed;
+	double		rot_speed;
 	double dirX;   // oyuncunun baktığı yön
 	double dirY;   // oyuncunun baktığı yön
 	double planeX; // oyuncu plane (aslında kendisi gibi bişi)
@@ -156,8 +156,8 @@ typedef struct s_keys
 	int			a;
 	int			s;
 	int			d;
-	int right;
-	int left;
+	int			right;
+	int			left;
 }				t_keys;
 
 typedef struct s_mlx
@@ -191,7 +191,7 @@ void			init_draw(t_draw_info *draw);
 // Utils
 int				ft_isspace(char c);
 void			ft_split_free(char **temp);
-char			*ft_path_maker(char *line, t_header *init, t_map *map);
+char			*ft_path_maker(char *line, t_header *init, t_map *map, int fd);
 int				ft_atol(const char *nptr);
 void			*ft_grid_maker(size_t count, size_t size, t_map *init_map,
 					t_header *header);
@@ -233,21 +233,23 @@ void			ft_line_height(t_player *player);
 // void		close_window(void);
 void			error_map_exit(t_map *init_map);
 void			error_exit_header(t_header *init);
-void	cleanup_all(t_header *header, t_map *map, t_mlx *mlx);
+void			cleanup_all(t_header *header, t_map *map, t_mlx *mlx);
 void			free_2d_array(char **array);
-void	error_exit_all(char *msg, t_header *header, t_map *map, t_mlx *mlx);
+void			error_exit_all(char *msg, t_header *header, t_map *map,
+					t_mlx *mlx);
+void			cleanup_gnl(int fd);
 
 // xpm_control.c
-void	is_xpm_valid(t_map *map, t_header *header, int type);
+int				is_xpm_valid(t_header *header, int type);
 
 // is_map_close.c
-void	is_map_closed(t_map *map, t_header *header);
+void			is_map_closed(t_map *map, t_header *header);
 
 // main_control.c
-void	control_map(t_map *map, t_header *header);
+void			control_map(t_map *map, t_header *header);
 
 // calculate_FPS.c
-void ft_calc_FPS(t_player *player);
-long long get_time_ms();
+void			ft_calc_FPS(t_player *player);
+long long		get_time_ms(void);
 
 #endif

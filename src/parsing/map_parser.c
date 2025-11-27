@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:30:11 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/26 18:52:40 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/27 15:59:02 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,57 @@ static void	is_empty_line(t_map *map, t_header *header)
 	int	i;
 	int	flag;
 	int	len;
-	int	j;
 
 	i = -1;
+	flag = 0;
+	len = -1;
 	while (map->raw_map[++i])
 	{
 		len = ft_strlen(map->raw_map[i]);
+		if(flag == 1 && len > 0)
+			error_exit_all("Extra char in the MAP!", header, map, NULL);
 		if (len == 0)
-			error_exit_all("There is an empty line in the MAP!", header, map, NULL);
-		j = -1;
-		flag = 1;
-		while (map->raw_map[i][++j])
 		{
-			if (map->raw_map[i][j] != ' ')
-				flag = 0;
+			flag = 1;
+			continue;
 		}
-		if (flag == 1)
-			error_exit_all("There is an empty line in the MAP!", header, map, NULL);
+		// 	error_exit_all("There is an empty line in the MAP!", header, map, NULL);
+		// j = -1;
+		// flag = 1;
+		// while (map->raw_map[i][++j])
+		// {
+		// 	if (map->raw_map[i][j] != ' ')
+		// 		flag = 0;
+		// }
+		// if (flag == 1)
+		// 	error_exit_all("There is an empty line in the MAP!", header, map, NULL);
 	}
 }
+
+// static void	is_empty_line(t_map *map, t_header *header)
+// {
+// 	int	i;
+// 	int	flag;
+// 	int	len;
+// 	int	j;
+
+// 	i = -1;
+// 	while (map->raw_map[++i])
+// 	{
+// 		len = ft_strlen(map->raw_map[i]);
+// 		if (len == 0)
+// 			error_exit_all("There is an empty line in the MAP!", header, map, NULL);
+// 		j = -1;
+// 		flag = 1;
+// 		while (map->raw_map[i][++j])
+// 		{
+// 			if (map->raw_map[i][j] != ' ')
+// 				flag = 0;
+// 		}
+// 		if (flag == 1)
+// 			error_exit_all("There is an empty line in the MAP!", header, map, NULL);
+// 	}
+// }
 
 static void	fill_grid(t_map *map)
 {
@@ -103,7 +135,7 @@ static void	make_grid(t_map *map, t_header *header)
 			max_x = len;
 		column++;
 	}
-		map->height = column + 2;  // Önce height'ı hesapla
+	map->height = column + 2;  // Önce height'ı hesapla
 	map->width = max_x + 2;
 	map->grid = malloc(sizeof(char *) * (column + 3)); // for null
 	if (!map->grid)

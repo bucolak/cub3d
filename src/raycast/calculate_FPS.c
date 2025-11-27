@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculate_FPS.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 16:47:50 by buket             #+#    #+#             */
-/*   Updated: 2025/11/26 17:54:21 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/27 15:54:52 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void ft_calc_FPS(t_player *player)
     oldTime = player->time;
     player->time = get_time_ms();
     frameTime = (player->time - oldTime) / 1000.0;
-    player->move_speed = frameTime * 5.0; // bu 5 ve 3 değerleri değişebilir.
-    player->rot_speed = frameTime * 3.0; 
+    player->move_speed = frameTime * MOVE_SPEED; 
+    player->rot_speed = frameTime * ROT_SPEED; 
 }

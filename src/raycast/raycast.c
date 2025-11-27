@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 02:55:45 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/22 14:30:08 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/27 17:07:03 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ void	ft_dda(t_player *player, t_map *map)
 			mapY += stepY;
 			player->side = 1;
 			// yatay eksende bir duvara çarptı y = a için bir dogru gibi düsün
+		}
+		if(mapX >= map->width || mapY >= map->height || mapX<0 || mapY<0)
+		{
+			player->wall_hit = 1;
+			return;
 		}
 		if (map->grid[mapY][mapX] == '1')
 			player->wall_hit = 1;

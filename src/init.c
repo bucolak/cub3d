@@ -6,19 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 01:35:12 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/23 13:00:47 by bucolak          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/05 12:29:34 by bucolak           #+#    #+#             */
-/*   Updated: 2025/11/06 15:35:25 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/27 13:54:38 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,26 +59,36 @@ t_map	*init_map(void)
 	return (map);
 }
 
+void img_control(void *img, t_mlx *mlx)
+{
+	if(!img)
+		error_exit_all("Texture loading failed!",mlx->header, mlx->map, mlx);
+}
+
 void	ft_texture_init(t_mlx *mlx, t_textures *tex)
 {
 	// north
 	tex->north.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->no_path,
 			&tex->north.width, &tex->north.height);
+	img_control(tex->north.img, mlx);
 	tex->north.addr = mlx_get_data_addr(tex->north.img, &tex->north.bpp,
 			&tex->north.line_len, &tex->north.endian);
 	// south
 	tex->south.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->so_path,
 			&tex->south.width, &tex->south.height);
+	img_control(tex->south.img, mlx);
 	tex->south.addr = mlx_get_data_addr(tex->south.img, &tex->south.bpp,
 			&tex->south.line_len, &tex->south.endian);
 	// east
 	tex->east.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->ea_path,
 			&tex->east.width, &tex->east.height);
+	img_control(tex->east.img, mlx);
 	tex->east.addr = mlx_get_data_addr(tex->east.img, &tex->east.bpp,
 			&tex->east.line_len, &tex->east.endian);
 	// west
 	tex->west.img = mlx_xpm_file_to_image(mlx->ptr, mlx->header->we_path,
 			&tex->west.width, &tex->west.height);
+	img_control(tex->west.img, mlx);
 	tex->west.addr = mlx_get_data_addr(tex->west.img, &tex->west.bpp,
 			&tex->west.line_len, &tex->west.endian);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:46:43 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/26 17:55:10 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/27 13:50:22 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (ft_putendl_fd("Error\nInvalid Program Use!", 2), 1);
+	ft_bzero(&tex, sizeof(tex));
 	header = init_header();
 	map = init_map();
 	main_parser(argv[1], header, map);

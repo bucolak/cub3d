@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 18:41:46 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/26 18:55:39 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/27 18:33:21 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,18 @@ void	cleanup_all(t_header *header, t_map *map, t_mlx *mlx)
 void	error_exit_all(char *msg, t_header *header, t_map *map, t_mlx *mlx)
 {
 	cleanup_all(header, map, mlx);
-	if (header)
-		free(header);
-	if (map)
-		free(map);
 	ft_putendl_fd("Error", 2);
 	if (msg)
 		ft_putendl_fd(msg, 2);
 	exit(1);
+}
+
+void cleanup_gnl(int fd)
+{
+
+	char *line;
+	if(fd < 0)
+		return ;
+	while((line=get_next_line(fd)))
+		free(line);
 }
