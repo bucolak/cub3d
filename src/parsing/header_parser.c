@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/27 19:08:22 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/29 11:30:21 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ static int	is_map_started(char *line)
 void	header_parse(int fd, t_header *header, t_map *map)
 {
 	char	*line;
+	int id_load;
 
 	line = get_next_line(fd);
 	if(!line)
@@ -177,20 +178,22 @@ void	header_parse(int fd, t_header *header, t_map *map)
 				error_exit_all("Please enter identifiers correctly!", header,
 					map, NULL);
 			}
-			if(identifier_load(header, map, line, fd) == 0)
+			id_load = identifier_load(header, map, line, fd);
+			if(id_load == 0)
 			{
 				free(line);
 				cleanup_gnl(fd);
 				error_exit_all("Invalid RGB!", header, map, NULL);
 			}
-			else if(identifier_load(header, map, line, fd) == -1)
+			else if(id_load == -1)
 			{
+				printf("şuanbura\n");
 				free(line);
 				cleanup_gnl(fd);
 				error_exit_all("Please enter identifiers correctly!", header,
 					map, NULL);
 			}
-			else if(identifier_load(header, map, line, fd) == 2)
+			else if(id_load == 2)
 			{
 				free(line);
 				cleanup_gnl(fd);
