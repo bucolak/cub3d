@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   xpm_control.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:02:30 by bucolak           #+#    #+#             */
-/*   Updated: 2025/11/27 19:06:21 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/29 16:10:17 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/cub3d.h"
+#include "cub3d.h"
 
 static int	control_so(t_header *header)
 {
@@ -86,5 +86,5 @@ int	is_xpm_valid(t_header *header, int type)
 		return (control_we(header));
 	else if (type == EA)
 		return (control_ea(header));
-	return 1;
+	return (1);
 }

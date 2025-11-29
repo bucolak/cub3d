@@ -3,27 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   is_map_close.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 14:49:24 by bucolak           #+#    #+#             */
-/*   Updated: 2025/11/27 16:41:56 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/29 17:15:40 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/cub3d.h"
+#include "cub3d.h"
 
 static int	is_columns_closed(t_map *map)
 {
 	int	j;
-	int i;
+	int	i;
 
 	i = 0;
 	while (map->raw_map[i])
 	{
-		if (map->raw_map[i][0] && map->raw_map[i][0] != '1' && map->raw_map[i][0] != ' '
-			&& map->raw_map[i][0] != '\n')
+		if (map->raw_map[i][0] && map->raw_map[i][0] != '1'
+			&& map->raw_map[i][0] != ' ' && map->raw_map[i][0] != '\n')
 		{
-			printf("id: %d, char: %d\n", i,map->raw_map[i][0]);
 			return (1);
 		}
 		j = 0;
@@ -41,9 +40,9 @@ static int	is_columns_closed(t_map *map)
 
 static int	is_raws_closed(t_map *map)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	i = 0;
 	while (map->raw_map[0][i])
 	{

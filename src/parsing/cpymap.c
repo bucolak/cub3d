@@ -27,7 +27,7 @@ char	**make_copy(t_map *map, t_header *header)
 		x = 0;
 		cpy_map[y] = (char *)malloc(sizeof(char) * (map->width) + 1);
 		if (!(cpy_map[y]))
-			error_exit_all("Malloc Error!", header, map,NULL);
+			error_exit_all("Malloc Error!", header, map, NULL);
 		while (map->grid[y][x])
 		{
 			cpy_map[y][x] = map->grid[y][x];

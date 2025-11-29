@@ -6,7 +6,7 @@
 /*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/29 11:30:21 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/29 17:15:52 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,112 +37,64 @@ static void	identifier_check(t_header *header, char *line)
 	}
 }
 
-static int	f_c_load(t_header *header, char *ptr)
+int handle_started_map(int fd, t_header *header, t_map *map, char *line)
 {
-	int		i;
-	char	**temp;
-	char	*trim;
-
-	i = 0;
-	temp = ft_split(ptr, ',');
-	if (!temp || !temp[0] || !temp[1] || !temp[2] || temp[3])
+	if (header->flag == 6)
 	{
-		free_2d_array(temp);
-		return 0;
+		raw_map_filler(line, map, fd, header);
+		return 1;
 	}
-	while (i < 3)
-	{
-		trim = ft_strtrim(temp[i], " \t\n");
-		if (!trim || !*trim)
-		{
-			free_2d_array(temp);
-			free(trim);
-			return 0;
-		}
-		if (header->type == F)
-			header->f_rgb[i] = ft_atol(trim);
-		else
-			header->c_rgb[i] = ft_atol(trim);
-		free(trim);
-		if (((header->type == F) && (header->f_rgb[i] == -1))
-			|| ((header->type == C) && (header->c_rgb[i] == -1)))
-			{
-				free_2d_array(temp);
-				return 0;
-			}
-		i++;
-	}
-	free_2d_array(temp);
-	return 1;
+	free(line);
+	cleanup_gnl(fd);
+	error_exit_all("Please enter identifiers correctly!", header,
+		map, NULL);
+	return 0;
 }
 
-static int	identifier_load(t_header *header, t_map *map, char *line, int fd)
+void	load_and_result(int fd, t_header *header, t_map *map, char *line)
 {
-	char *rgb;
+	int id_load;
 	
-	if (header->type == NO)
+	id_load = identifier_load(header, map, line, fd);
+	if (id_load == 0)
 	{
-		if (header->no_path) // bu kontrollerin sebebi map5te 2 tane north var örneğin, oz aman leak oluyodu o yüzden bi kere atama yapıyoruz
-			return -1;
-		header->no_path = ft_path_maker(line, header, map,fd);
+		free(line);
+		cleanup_gnl(fd);
+		error_exit_all("Invalid RGB!", header, map, NULL);
 	}
-	else if (header->type == SO)
+	else if (id_load == -1)
 	{
-		if (header->so_path)
-			return -1;
-		header->so_path = ft_path_maker(line, header, map,fd);
+		free(line);
+		cleanup_gnl(fd);
+		error_exit_all("Please enter identifiers correctly!", header,
+			map, NULL);
 	}
-	else if (header->type == WE)
+	else if (id_load == 2)
 	{
-		if (header->we_path)
-			return -1;
-		header->we_path = ft_path_maker(line, header, map,fd);
+		free(line);
+		cleanup_gnl(fd);
+		error_exit_all("Wrong XPM Format!", header, map, NULL);
 	}
-	else if (header->type == EA)
-	{
-		if (header->ea_path)
-			return -1;
-		header->ea_path = ft_path_maker(line, header, map,fd);
-	}
-	else if (header->type == F || header->type == C)
-	{
-		rgb = ft_path_maker(line, header, map,fd);
-		if(!f_c_load(header, rgb))
-		{
-			free(rgb);
-			return 0;
-		}
-		free(rgb);
-	}
-	if(is_xpm_valid(header, header->type) == 0)
-		return 2;
-	return 1;
 }
 
-static int	is_map_started(char *line)
+void handle_identifier_check(int fd, t_header *header, t_map *map, char *line)
 {
-	int	i;
-	int verify_map;
-
-	verify_map = 1;
-	i = 0;
-	while (line[i] && line[i] != '\n')
+	identifier_check(header, line);
+	if (header->type == ERROR)
 	{
-		if (!(line[i] == '0' || line[i] == '1' || line[i] == 'N' || line[i] == 'S'
-			|| line[i] == 'E' || line[i] == 'W' || line[i] == ' '))
-			verify_map = 0;;
-		i++;
+		free(line);
+		cleanup_gnl(fd);
+		error_exit_all("Please enter identifiers correctly!", header,
+			map, NULL);
 	}
-	return (verify_map);
 }
 
 void	header_parse(int fd, t_header *header, t_map *map)
 {
 	char	*line;
-	int id_load;
 
 	line = get_next_line(fd);
-	if(!line)
+	if (!line)
 		error_exit_all("Empty Map!", header, map, NULL);
 	while (line)
 	{
@@ -150,55 +102,18 @@ void	header_parse(int fd, t_header *header, t_map *map)
 		{
 			free(line);
 			line = get_next_line(fd);
-			continue;
+			continue ;
 		}
-		if (header->ea_path && header->we_path && header->so_path 
+		if (header->ea_path && header->we_path && header->so_path
 			&& header->no_path && is_map_started(line) == 1)
-		{
-			if (header->flag == 6)
 			{
-				raw_map_filler(line, map, fd, header);
-				break ;
+				if (handle_started_map(fd, header, map, line))
+					break ;
 			}
-			else
-			{
-				free(line);
-				cleanup_gnl(fd);
-				error_exit_all("Please enter identifiers correctly!", header,
-					map, NULL);
-			}
-		}
 		else
 		{
-			identifier_check(header, line);
-			if (header->type == ERROR)
-			{
-				free(line);
-				cleanup_gnl(fd);
-				error_exit_all("Please enter identifiers correctly!", header,
-					map, NULL);
-			}
-			id_load = identifier_load(header, map, line, fd);
-			if(id_load == 0)
-			{
-				free(line);
-				cleanup_gnl(fd);
-				error_exit_all("Invalid RGB!", header, map, NULL);
-			}
-			else if(id_load == -1)
-			{
-				printf("şuanbura\n");
-				free(line);
-				cleanup_gnl(fd);
-				error_exit_all("Please enter identifiers correctly!", header,
-					map, NULL);
-			}
-			else if(id_load == 2)
-			{
-				free(line);
-				cleanup_gnl(fd);
-				error_exit_all("Wrong XPM Format!", header, map, NULL);
-			}
+			handle_identifier_check(fd, header, map, line);
+			load_and_result(fd, header, map, line);
 		}
 		free(line);
 		line = get_next_line(fd);

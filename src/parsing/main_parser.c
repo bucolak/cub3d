@@ -45,12 +45,13 @@ void	main_parser(char *header, t_header *init, t_map *map)
 
 	fd = open(header, O_RDONLY);
 	if (fd == -1)
-		error_exit_all("Invalid file name!", init, map, NULL); // bu mesaj fd ile değiştirilse nasıl olur? wrong file name mesajıyla karışmaması açısından
+		error_exit_all("Invalid file name!", init, map, NULL);
+	// bu mesaj fd ile değiştirilse nasıl olur? wrong file name mesajıyla karışmaması açısından
 	file_name_control(header, map, init);
 	header_parse(fd, init, map);
 	// print_raw_map(map);
-	if(!map->raw_map)
-		error_exit_all("No Map!", init, map,NULL);
-	//print_raw_map(map);
+	if (!map->raw_map)
+		error_exit_all("No Map!", init, map, NULL);
+	// print_raw_map(map);
 	map_parse(map, init);
 }

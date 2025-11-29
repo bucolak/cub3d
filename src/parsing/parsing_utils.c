@@ -53,7 +53,7 @@ char	*ft_path_maker(char *line, t_header *init, t_map *map, int fd)
 	end = start;
 	if (init->type == F || init->type == C)
 	{
-		while(*end && *end != '\n')
+		while (*end && *end != '\n')
 			end++;
 		return (ft_substr(start, 0, end - start));
 	}

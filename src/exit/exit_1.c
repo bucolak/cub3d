@@ -49,51 +49,49 @@ void	error_map_exit(t_map *init_map)
 		free_2d_array(init_map->grid);
 }
 
-
-
-void clean_textures(t_mlx *mlx)
+void	clean_textures(t_mlx *mlx)
 {
-	if(mlx->tex)
+	if (mlx->tex)
 	{
-		if(mlx->tex->east.img)
-			mlx_destroy_image(mlx->ptr ,mlx->tex->east.img);
-		if(mlx->tex->north.img)
+		if (mlx->tex->east.img)
+			mlx_destroy_image(mlx->ptr, mlx->tex->east.img);
+		if (mlx->tex->north.img)
 			mlx_destroy_image(mlx->ptr, mlx->tex->north.img);
-		if(mlx->tex->south.img)
+		if (mlx->tex->south.img)
 			mlx_destroy_image(mlx->ptr, mlx->tex->south.img);
-		if(mlx->tex->west.img)
+		if (mlx->tex->west.img)
 			mlx_destroy_image(mlx->ptr, mlx->tex->west.img);
 	}
 }
 
-void clean_mlx_func(t_mlx *mlx)
+void	clean_mlx_func(t_mlx *mlx)
 {
-	if(mlx->img.img)
+	if (mlx->img.img)
 		mlx_destroy_image(mlx->ptr, mlx->img.img);
-	if(mlx->win)
+	if (mlx->win)
 		mlx_destroy_window(mlx->ptr, mlx->win);
-	if(mlx->ptr)
+	if (mlx->ptr)
 	{
 		mlx_destroy_display(mlx->ptr);
 		free(mlx->ptr);
 	}
-	if(mlx)
+	if (mlx)
 		free(mlx);
 }
 void	cleanup_all(t_header *header, t_map *map, t_mlx *mlx)
 {
-	if(header)
+	if (header)
 		error_exit_header(header);
-	if(map)
+	if (map)
 		error_map_exit(map);
-	if(mlx)
+	if (mlx)
 		clean_textures(mlx);
-	if(mlx)
+	if (mlx)
 		clean_mlx_func(mlx);
 	if (header)
-        free(header);
-    if (map)
-        free(map);
+		free(header);
+	if (map)
+		free(map);
 }
 void	error_exit_all(char *msg, t_header *header, t_map *map, t_mlx *mlx)
 {
@@ -104,12 +102,11 @@ void	error_exit_all(char *msg, t_header *header, t_map *map, t_mlx *mlx)
 	exit(1);
 }
 
-void cleanup_gnl(int fd)
+void	cleanup_gnl(int fd)
 {
-
 	char *line;
-	if(fd < 0)
+	if (fd < 0)
 		return ;
-	while((line=get_next_line(fd)))
+	while ((line = get_next_line(fd)))
 		free(line);
 }

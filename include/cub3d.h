@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/27 19:05:52 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/29 16:07:43 by buket            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,11 @@ typedef struct s_player
 	int			wall_hit;
 	int			side;
 
+	int	stepX;
+	int	stepY;
+	int	mapX;
+	int	mapY;
+
 }				t_player;
 
 typedef struct s_map
@@ -199,6 +204,7 @@ char			*ft_combining(char *line, char *whole, t_map *map,
 					t_header *header);
 void			raw_map_filler(char *line, t_map *init_map, int fd,
 					t_header *header);
+int	is_map_started(char *line);
 
 // Flood Fill
 void			fill_space(char **cpy_map, int x, int y, t_map *map);
@@ -217,7 +223,6 @@ int				update_game(t_mlx *mlx);
 
 // 2D Rendering
 void			ft_2d_init(t_mlx *mlx);
-void			put_pixel(t_img *img, int x, int y, int color);
 void			draw_square(t_img *img, int x, int y, int size, int color);
 void			draw_map(t_mlx *mlx, int tile_size);
 void			draw_player(t_mlx *mlx, int tile_size, int player_size);
@@ -251,5 +256,37 @@ void			control_map(t_map *map, t_header *header);
 // calculate_FPS.c
 void			ft_calc_FPS(t_player *player);
 long long		get_time_ms(void);
+
+// player_i.c
+void	img_control(void *img, t_mlx *mlx);
+
+// load_tex.c
+int load_no(t_header *header, t_map *map, char *line, int fd);
+int load_so(t_header *header, t_map *map, char *line, int fd);
+int load_we(t_header *header, t_map *map, char *line, int fd);
+int load_ea(t_header *header, t_map *map, char *line, int fd);
+
+// i_load.c
+int	identifier_load(t_header *header, t_map *map, char *line, int fd);
+
+// rgb_load.c
+int	f_c_load(t_header *header, char *ptr);
+
+// valid_map_control.c
+void	is_chars_valid(t_map *map, t_header *header);
+void	is_empty_line(t_map *map, t_header *header);
+
+// draw.c
+void	start_draw(t_player *ray, int x, t_mlx *mlx, t_draw_info *draw);
+
+// raycast_scnd.c
+void	ft_ray_maker(t_player *player, int x, int screen_width);
+void	ft_wall_dist(t_player *player);
+void	ft_line_height(t_player *player);
+t_texture	*get_texture(t_player *player, t_textures *tex);
+
+// key_actions.c
+int	key_press(int keycode, t_mlx *mlx);
+int	key_release(int keycode, t_mlx *mlx);
 
 #endif
