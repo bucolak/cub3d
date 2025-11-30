@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 02:55:45 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/29 15:56:47 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/30 13:11:52 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void calculate_sideDist(t_player *player)
+void	calculate_sideDist(t_player *player)
 {
 	player->mapX = (int)player->x;
 	player->mapY = (int)player->y;
@@ -24,7 +24,8 @@ void calculate_sideDist(t_player *player)
 	else
 	{
 		player->stepX = 1;
-		player->sideDistX = (player->mapX + 1.0 - player->x) * player->deltaDistX;
+		player->sideDistX = (player->mapX + 1.0 - player->x)
+			* player->deltaDistX;
 	}
 	if (player->rayDirY < 0)
 	{
@@ -34,7 +35,8 @@ void calculate_sideDist(t_player *player)
 	else
 	{
 		player->stepY = 1;
-		player->sideDistY = (player->mapY + 1.0 - player->y) * player->deltaDistY;
+		player->sideDistY = (player->mapY + 1.0 - player->y)
+			* player->deltaDistY;
 	}
 }
 

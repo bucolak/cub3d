@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 17:30:00 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/29 15:39:00 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/30 12:57:32 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	rotate_player(t_player *player, double angle)
 	player->planeY = old_plane_x * sin(angle) + player->planeY * cos(angle);
 }
 
-static void key_control(t_map *map, int key, double *newX, double *newY)
+static void	key_control(t_map *map, int key, double *newX, double *newY)
 {
 	if (key == UP)
 	{

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   rgb_load.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 15:02:19 by buket             #+#    #+#             */
-/*   Updated: 2025/11/29 15:02:45 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/30 13:09:56 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int process_rgb(t_header *header, char **temp, int i)
+int	process_rgb(t_header *header, char **temp, int i)
 {
-	char *trim;
-	
+	char	*trim;
+
 	trim = ft_strtrim(temp[i], " \t\n");
 	if (!trim || !*trim)
 	{
@@ -30,7 +30,7 @@ int process_rgb(t_header *header, char **temp, int i)
 	if (((header->type == F) && (header->f_rgb[i] == -1))
 		|| ((header->type == C) && (header->c_rgb[i] == -1)))
 		return (0);
-	return 1;
+	return (1);
 }
 
 int	f_c_load(t_header *header, char *ptr)
@@ -47,10 +47,10 @@ int	f_c_load(t_header *header, char *ptr)
 	}
 	while (i < 3)
 	{
-		if(!process_rgb(header, temp, i))
+		if (!process_rgb(header, temp, i))
 		{
 			free_2d_array(temp);
-			return 0;
+			return (0);
 		}
 		i++;
 	}

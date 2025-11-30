@@ -6,12 +6,11 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 18:28:54 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/27 18:44:27 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/30 14:11:04 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "limits.h"
 
 int	ft_isspace(char c)
 {
@@ -20,19 +19,19 @@ int	ft_isspace(char c)
 	else
 		return (0);
 }
-void	ft_split_free(char **temp)
-{
-	int	i;
 
-	i = 0;
-	if (!temp)
-		return ;
-	while (temp[i])
+static void	ft_path_maker_helper(t_header *init, char **end)
+{
+	if (init->type == F || init->type == C)
 	{
-		free(temp[i]);
-		i++;
+		while (**end && **end != '\n')
+			(*end)++;
+		return ;
 	}
-	free(temp);
+	while (**end && !ft_isspace(**end) && **end != '\n')
+		(*end)++;
+	while (ft_isspace(**end))
+		(*end)++;
 }
 
 char	*ft_path_maker(char *line, t_header *init, t_map *map, int fd)
@@ -51,16 +50,9 @@ char	*ft_path_maker(char *line, t_header *init, t_map *map, int fd)
 		ptr++;
 	start = ptr;
 	end = start;
+	ft_path_maker_helper(init, &end);
 	if (init->type == F || init->type == C)
-	{
-		while (*end && *end != '\n')
-			end++;
 		return (ft_substr(start, 0, end - start));
-	}
-	while (*end && !ft_isspace(*end) && *end != '\n')
-		end++;
-	while (ft_isspace(*end))
-		end++;
 	if (*end != '\0' && *end != '\n')
 	{
 		free(line);

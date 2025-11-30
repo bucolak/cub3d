@@ -1,35 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calculate_FPS.c                                    :+:      :+:    :+:   */
+/*   exit_scnd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/26 16:47:50 by buket             #+#    #+#             */
-/*   Updated: 2025/11/30 13:11:21 by bucolak          ###   ########.fr       */
+/*   Created: 2025/11/30 13:17:24 by bucolak           #+#    #+#             */
+/*   Updated: 2025/11/30 13:18:27 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-long long	get_time_ms(void)
+void	error_exit_all(char *msg, t_header *header, t_map *map, t_mlx *mlx)
 {
-	struct timeval	tv;
-	long long		time;
-
-	gettimeofday(&tv, NULL);
-	time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-	return (time);
+	cleanup_all(header, map, mlx);
+	ft_putendl_fd("Error", 2);
+	if (msg)
+		ft_putendl_fd(msg, 2);
+	exit(1);
 }
 
-void	ft_calc_FPS(t_player *player)
+void	cleanup_gnl(int fd)
 {
-	double	oldTime;
-	double	frameTime;
+	char	*line;
 
-	oldTime = player->time;
-	player->time = get_time_ms();
-	frameTime = (player->time - oldTime) / 1000.0;
-	player->move_speed = frameTime * MOVE_SPEED;
-	player->rot_speed = frameTime * ROT_SPEED;
+	if (fd < 0)
+		return ;
+	while ((line = get_next_line(fd)))
+		free(line);
+}
+
+void	free_2d_array(char **array)
+{
+	int i;
+
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }

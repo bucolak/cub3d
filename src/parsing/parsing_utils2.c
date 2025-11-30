@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 01:53:47 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/29 15:04:46 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/30 13:25:22 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*ft_combining(char *line, char *whole, t_map *map, t_header *header)
+static char	*ft_combining(char *line, char *whole, t_map *map, t_header *header)
 {
 	char	*new;
 
@@ -28,7 +28,7 @@ char	*ft_combining(char *line, char *whole, t_map *map, t_header *header)
 	return (new);
 }
 
-void	fill_m(char *whole, t_map *map)
+static void	fill_m(char *whole, t_map *map)
 {
 	int	i;
 	int	c;

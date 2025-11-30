@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 00:14:10 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/29 17:15:52 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/30 13:25:52 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,23 @@ static void	identifier_check(t_header *header, char *line)
 	}
 }
 
-int handle_started_map(int fd, t_header *header, t_map *map, char *line)
+static int	handle_started_map(int fd, t_header *header, t_map *map, char *line)
 {
 	if (header->flag == 6)
 	{
 		raw_map_filler(line, map, fd, header);
-		return 1;
+		return (1);
 	}
 	free(line);
 	cleanup_gnl(fd);
-	error_exit_all("Please enter identifiers correctly!", header,
-		map, NULL);
-	return 0;
+	error_exit_all("Please enter identifiers correctly!", header, map, NULL);
+	return (0);
 }
 
-void	load_and_result(int fd, t_header *header, t_map *map, char *line)
+static void	load_and_result(int fd, t_header *header, t_map *map, char *line)
 {
-	int id_load;
-	
+	int	id_load;
+
 	id_load = identifier_load(header, map, line, fd);
 	if (id_load == 0)
 	{
@@ -66,8 +65,8 @@ void	load_and_result(int fd, t_header *header, t_map *map, char *line)
 	{
 		free(line);
 		cleanup_gnl(fd);
-		error_exit_all("Please enter identifiers correctly!", header,
-			map, NULL);
+		error_exit_all("Please enter identifiers correctly!", header, map,
+			NULL);
 	}
 	else if (id_load == 2)
 	{
@@ -77,15 +76,16 @@ void	load_and_result(int fd, t_header *header, t_map *map, char *line)
 	}
 }
 
-void handle_identifier_check(int fd, t_header *header, t_map *map, char *line)
+static void	handle_identifier_check(int fd, t_header *header, t_map *map,
+		char *line)
 {
 	identifier_check(header, line);
 	if (header->type == ERROR)
 	{
 		free(line);
 		cleanup_gnl(fd);
-		error_exit_all("Please enter identifiers correctly!", header,
-			map, NULL);
+		error_exit_all("Please enter identifiers correctly!", header, map,
+			NULL);
 	}
 }
 
@@ -106,10 +106,10 @@ void	header_parse(int fd, t_header *header, t_map *map)
 		}
 		if (header->ea_path && header->we_path && header->so_path
 			&& header->no_path && is_map_started(line) == 1)
-			{
-				if (handle_started_map(fd, header, map, line))
-					break ;
-			}
+		{
+			if (handle_started_map(fd, header, map, line))
+				break ;
+		}
 		else
 		{
 			handle_identifier_check(fd, header, map, line);

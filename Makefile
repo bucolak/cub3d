@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: buket <buket@student.42.fr>                +#+  +:+       +#+         #
+#    By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 23:02:30 by iarslan           #+#    #+#              #
-#    Updated: 2025/11/29 16:09:49 by buket            ###   ########.fr        #
+#    Updated: 2025/11/30 16:36:41 by bucolak          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,12 +46,14 @@ SRC := \
 	$(PARSE_DIR)/valid_map_control.c \
 	$(PARSE_DIR)/flood_fill.c \
 	$(PARSE_DIR)/cpymap.c \
+	$(PARSE_DIR)/control_playable.c \
 	$(PARSE_DIR)/rgb_load.c \
 	$(PARSE_DIR)/parsing_utils.c \
 	$(PARSE_DIR)/parsing_utils2.c \
 	$(PARSE_DIR)/is_map_close.c \
 	$(PARSE_DIR)/xpm_control.c \
-	$(EXIT_DIR)/exit_1.c \
+	$(EXIT_DIR)/exit_first.c \
+	$(EXIT_DIR)/exit_scnd.c \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c \
 	debug/debug.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 01:21:41 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/29 15:35:25 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/30 13:11:17 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,9 @@ void	get_info_from_draw(t_draw_info *draw, t_player *ray,
 	wall_x = get_wall_x(ray);
 	wall_x -= floor(wall_x);
 	draw->tex_x = (int)(wall_x * draw->tex->width);
-	draw->step = 1.0 * draw->tex->height
-		/ ray->line_height;                        
-		// her ekran pixeli için texture'da ne kadar ilerleyeceğiz
+	draw->step = 1.0 * draw->tex->height / ray->line_height; // her ekran pixeli için texture'da ne kadar ilerleyeceğiz
 	draw->texPos = (ray->drawStart - WIN_H / 2 + ray->line_height / 2)
-		* draw->step;
-		// Şu an ekranın bu pikselini boyuyorum ama texture resminin neresindeyim
+		* draw->step; // Şu an ekranın bu pikselini boyuyorum ama texture resminin neresindeyim
 }
 
 int	ft_3d(t_mlx *mlx)

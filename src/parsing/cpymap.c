@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cpymap.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 03:12:48 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/26 18:49:38 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/30 15:44:32 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ void	copy_mapcontrol_space(t_map *map, char **cpy_map, t_header *header)
 				if (is_zero_at(cpy_map, x + 1, y, map) || is_zero_at(cpy_map, x
 						- 1, y, map) || is_zero_at(cpy_map, x, y + 1, map)
 					|| is_zero_at(cpy_map, x, y - 1, map))
-				{
-					free_2d_array(cpy_map);
-					error_exit_all("There is space which is not covered!",
-						header, map, NULL);
+					{
+						free_2d_array(cpy_map);
+						error_exit_all("There is space which is not covered!",
+							header, map, NULL);
 				}
 			}
 			x++;

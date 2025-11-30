@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: buket <buket@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:30:11 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/29 15:14:26 by buket            ###   ########.fr       */
+/*   Updated: 2025/11/30 16:36:20 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,13 @@ void	map_parse(t_map *map, t_header *header)
 	is_map_closed(map, header);
 	cpy_map = make_copy(map, header);
 	copy_mapcontrol_space(map, cpy_map, header);
+	player_init(map);
+	cpy_map[(int)map->player.y][(int)map->player.x] = '0';
+	ff_playable(cpy_map, map->player.x, map->player.y, map);
+	if (!is_map_multipel(cpy_map))
+	{
+		free_2d_array(cpy_map);
+		error_exit_all("Multiple Map!", header, map, NULL);
+	}
 	free_2d_array(cpy_map);
 }

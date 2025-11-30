@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:46:43 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/27 13:50:22 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/11/30 15:46:36 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	header = init_header();
 	map = init_map();
 	main_parser(argv[1], header, map);
-	player_init(map);
+	// player_init(map);
 	mlx = ft_mlx_init(map, header, &tex);
 	ft_texture_init(mlx, &tex);
 	open_window(mlx, map, header);
