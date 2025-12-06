@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:30:11 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/30 16:36:20 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/12/06 17:17:53 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	make_grid(t_map *map, t_header *header)
 		error_exit_all("Malloc Error", header, map, NULL);
 	while (++y < column + 2)
 		map->grid[y] = ft_grid_maker(sizeof(char), (max_x + 2), map, header);
-	map->grid[y] = NULL; // Şimdi NULL terminator'ı ekle
+	map->grid[y] = NULL;
 	fill_grid(map);
 }
 
@@ -83,6 +83,17 @@ static void	info(t_map *map, t_header *header)
 	}
 	make_grid(map, header);
 }
+// void	print_raw_map2(char **map)  // DEBUG
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (map[i])
+// 	{
+// 		printf("%s\n", map[i]);
+// 		i++;
+// 	}
+// }
 
 void	map_parse(t_map *map, t_header *header)
 {
@@ -97,6 +108,7 @@ void	map_parse(t_map *map, t_header *header)
 	player_init(map);
 	cpy_map[(int)map->player.y][(int)map->player.x] = '0';
 	ff_playable(cpy_map, map->player.x, map->player.y, map);
+	// print_raw_map2(cpy_map);
 	if (!is_map_multipel(cpy_map))
 	{
 		free_2d_array(cpy_map);

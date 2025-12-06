@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 12:42:25 by buket             #+#    #+#             */
-/*   Updated: 2025/11/30 15:47:07 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/12/06 15:15:32 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,11 @@ void	player_init(t_map *map)
 				map->player.y = y + 0.5;
 				ft_set_orientation(map);
 				ft_set_plane(map);
+				player_init_2(&map->player); // bu en alttaydı ama return'den dolayı en alta gitmiyodu o yüzden buraya aldım
 				return ;
 			}
 			x++;
 		}
 		y++;
 	}
-	player_init_2(&map->player);
 }

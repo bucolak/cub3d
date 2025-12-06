@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 16:47:50 by buket             #+#    #+#             */
-/*   Updated: 2025/11/30 13:11:21 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/12/06 17:49:38 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ long long	get_time_ms(void)
 void	ft_calc_FPS(t_player *player)
 {
 	double	oldTime;
-	double	frameTime;
+	double	frame_time;
 
 	oldTime = player->time;
 	player->time = get_time_ms();
-	frameTime = (player->time - oldTime) / 1000.0;
-	player->move_speed = frameTime * MOVE_SPEED;
-	player->rot_speed = frameTime * ROT_SPEED;
+	frame_time = (player->time - oldTime) / 1000.0;
+	player->move_speed = frame_time * MOVE_SPEED; // Her frame'de o frame için hareket miktarı hesaplanıyor burda
+	player->rot_speed = frame_time * ROT_SPEED;
 }

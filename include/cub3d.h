@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 23:44:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/30 16:37:45 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/12/06 17:49:07 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define WIN_H 1080
 # define FOV_DEG 66.0
 # define M_PI 3.14159265358979323846
-# define ROT_SPEED 2.0
-# define MOVE_SPEED 3.0
+# define ROT_SPEED 2.0 
+# define MOVE_SPEED 3.0 // saniye başına hareket hızı
 
 enum			TYPE
 {

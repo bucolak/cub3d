@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 01:53:47 by iarslan           #+#    #+#             */
-/*   Updated: 2025/11/30 13:25:22 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/12/06 13:44:02 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	is_map_started(char *line)
 				|| line[i] == 'S' || line[i] == 'E' || line[i] == 'W'
 				|| line[i] == ' '))
 			verify_map = 0;
-		;
 		i++;
 	}
 	return (verify_map);
