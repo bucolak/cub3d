@@ -6,7 +6,7 @@
 /*   By: bucolak <bucolak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 01:21:41 by iarslan           #+#    #+#             */
-/*   Updated: 2025/12/06 20:08:53 by bucolak          ###   ########.fr       */
+/*   Updated: 2025/12/10 18:37:27 by bucolak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,15 @@ void	get_info_from_draw(t_draw_info *draw, t_player *ray,
 	wall_x = get_wall_x(ray);
 	wall_x -= floor(wall_x);
 	draw->tex_x = (int)(wall_x * draw->tex->width);
-	draw->step = 1.0 * draw->tex->height / ray->line_height; // her ekran pixeli için texture'da ne kadar ilerleyeceğiz
+	if ((ray->side == 0 && ray->rayDirX < 0) || (ray->side == 1
+			&& ray->rayDirY < 0)) // ayna kontrolü
+		draw->tex_x = draw->tex->width - draw->tex_x - 1;
+	draw->step = 1.0 * draw->tex->height / ray->line_height;
+		// her ekran pixeli için texture'da ne kadar ilerleyeceğiz
 	draw->texPos = (ray->drawStart - WIN_H / 2 + ray->line_height / 2)
 		* draw->step;
 }
-//ayna kontrolü eksik
+
 int	ft_3d(t_mlx *mlx)
 {
 	int			x;
