@@ -5,7 +5,7 @@ SO ./textures/south.xpm
 
 WE ./textures/east_64.xpm
 
-EA ./textures/east_64.xpm
+EA ./textures/east_64.xpm																						   	
 
 F 30, 30, 30
 
