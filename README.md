@@ -57,5 +57,5 @@ src/
 
 ## Authors
 
-- **iarslan**
+- **iarslan** — İrfan Kerem Arslan
 - **bucolak** — Buket Çolak
